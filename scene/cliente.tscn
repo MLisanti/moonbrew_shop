@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://vibjky5l2jud"]
+
+[ext_resource type="Script" uid="uid://b25blng3ymu8u" path="res://scene/cliente.gd" id="1_ave0m"]
+[ext_resource type="Texture2D" uid="uid://wu63avfq721c" path="res://immagini/cliente.png" id="2_ave0m"]
+[ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_850jr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ave0m"]
+size = Vector2(135, 131)
+
+[node name="cliente" type="Area2D" unique_id=1132467231]
+script = ExtResource("1_ave0m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1644912064]
+scale = Vector2(0.7201258, 0.7201258)
+texture = ExtResource("2_ave0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=92986014]
+position = Vector2(-2.5, 0.5)
+shape = SubResource("RectangleShape2D_ave0m")
+
+[node name="features" type="Node2D" parent="." unique_id=669867145]
+
+[node name="Marker2D" type="Marker2D" parent="features" unique_id=31309875]
+position = Vector2(-38, -104)
+
+[node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_850jr")]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

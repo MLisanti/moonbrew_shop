@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cvgllq87tbpcs"]
+
+[ext_resource type="Texture2D" uid="uid://4f6jhp38l62c" path="res://immagini/acqua.png" id="1_vv62a"]
+[ext_resource type="Texture2D" uid="uid://c6ycqk7briref" path="res://immagini/elettro.png" id="2_vx1k8"]
+[ext_resource type="Texture2D" uid="uid://cemci181nyi7t" path="res://immagini/fuoco.png" id="3_6cie7"]
+[ext_resource type="Texture2D" uid="uid://dhujxvajv1c26" path="res://immagini/vento.png" id="4_xfpit"]
+[ext_resource type="Script" uid="uid://lkwf7wnc24t0" path="res://scene/elemento.gd" id="5_vx1k8"]
+[ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="6_6cie7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wscrc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vv62a")
+}],
+"loop": true,
+"name": &"acqua",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vx1k8")
+}],
+"loop": true,
+"name": &"elettro",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6cie7")
+}],
+"loop": true,
+"name": &"fuoco",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xfpit")
+}],
+"loop": true,
+"name": &"vento",
+"speed": 5.0
+}]
+
+[node name="elemento" type="AnimatedSprite2D" unique_id=1651541046]
+scale = Vector2(0.51568377, 0.51568377)
+sprite_frames = SubResource("SpriteFrames_wscrc")
+animation = &"vento"
+script = ExtResource("5_vx1k8")
+
+[node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("6_6cie7")]

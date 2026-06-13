@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ycdc2eboahxd"]
+
+[ext_resource type="Script" uid="uid://dbp0rqf4nixbh" path="res://scene/pozione.gd" id="1_3qbha"]
+[ext_resource type="Texture2D" uid="uid://cdqjsdxgliso7" path="res://immagini/pozione.png" id="2_3qbha"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qbha"]
+radius = 60.0
+height = 120.0
+
+[node name="pozione" type="Area2D" unique_id=1292925384]
+script = ExtResource("1_3qbha")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=683860518]
+scale = Vector2(0.89830506, 0.8983052)
+texture = ExtResource("2_3qbha")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911560465]
+shape = SubResource("CapsuleShape2D_3qbha")
+
+[node name="lbl_price" type="Label" parent="." unique_id=2080580469]
+offset_left = -52.0
+offset_top = 73.0
+offset_right = 59.0
+offset_bottom = 96.0
+text = "0.0 c"
+horizontal_alignment = 1
+
+[node name="features" type="Node2D" parent="." unique_id=1523772218]
+
+[node name="Marker2D" type="Marker2D" parent="features" unique_id=754010656]
+position = Vector2(-35, -106)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

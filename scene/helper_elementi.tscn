@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bg3a1fnlwgjk3"]
+
+[ext_resource type="Script" uid="uid://dtqfeysgl26ls" path="res://scene/helper_elementi.gd" id="1_ugp1g"]
+
+[node name="helperElementi" type="Node" unique_id=1343818349]
+script = ExtResource("1_ugp1g")
