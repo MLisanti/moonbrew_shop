@@ -24,6 +24,14 @@ func show_features(element_list:String):
 		$features.add_child(nodo_elemento)
 		i += 1
 
+func creaMask (stringa:String) -> String:
+	var i = 0
+	var res = ""
+	while(i<stringa.length()):
+		res += "0"
+		i += 1
+	return res
+
 func _on_area_entered(area:Area2D):
 	
 	var potion:Node2D = null
@@ -34,14 +42,17 @@ func _on_area_entered(area:Area2D):
 	
 	var effects=""
 	
-	var maskPozioniUsate = "00"
-	var maskMalattieCurate = "00"
+	var maskPozioniUsate = "0"
+	var maskMalattieCurate = "0"
 	
 	if(area.name.to_lower().begins_with("pozione")):
 		
 		potion = area
 		
-		var pElements = potion.elements
+		var pElements:String = potion.elements
+		maskPozioniUsate = creaMask(pElements)
+		maskMalattieCurate = creaMask(disease)
+		
 		print("Elementi pozione: " + pElements)
 		print("Malattie: " + disease)
 		

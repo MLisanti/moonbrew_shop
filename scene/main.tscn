@@ -26,7 +26,7 @@ texture = ExtResource("4_brvut")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=504331853]
 
-[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=2087639673]
+[node name="sopra" type="MarginContainer" parent="UI" unique_id=2087639673]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -34,15 +34,34 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" unique_id=185364146]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/sopra" unique_id=185364146]
 layout_mode = 2
 
-[node name="lbl_money_goal" type="Label" parent="UI/MarginContainer/VBoxContainer" unique_id=1024936020]
+[node name="lbl_money_goal" type="Label" parent="UI/sopra/VBoxContainer" unique_id=1024936020]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "GUADAGNO / VENDUTO"
 
-[node name="lbl_effects" type="Label" parent="UI/MarginContainer/VBoxContainer" unique_id=461856114]
+[node name="lbl_effects" type="Label" parent="UI/sopra/VBoxContainer" unique_id=461856114]
 layout_mode = 2
+
+[node name="centro" type="MarginContainer" parent="UI" unique_id=630878326]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/centro" unique_id=306350036]
+layout_mode = 2
+
+[node name="lblMessaggio" type="Label" parent="UI/centro/VBoxContainer" unique_id=1747189739]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Hai passato il round!"
+horizontal_alignment = 1
 
 [node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_wp4xf")]
