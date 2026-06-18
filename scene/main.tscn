@@ -46,7 +46,6 @@ text = "GUADAGNO / VENDUTO"
 layout_mode = 2
 
 [node name="centro" type="MarginContainer" parent="UI" unique_id=630878326]
-visible = false
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -62,6 +61,12 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Hai passato il round!"
+horizontal_alignment = 1
+
+[node name="lblAzione" type="Label" parent="UI/centro/VBoxContainer" unique_id=1343711622]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Click per continuare"
 horizontal_alignment = 1
 
 [node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_wp4xf")]
