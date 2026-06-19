@@ -44,7 +44,7 @@ func _ready():
 	cambia_stato_livello(statiLivello.INIZIO)
 
 func _process(_delta):
-	if(statoLivello == statiLivello.INIZIO and Input.is_action_just_released("conferma")):
+	if(statoLivello == statiLivello.INIZIO and Input.is_action_just_released("conferma") and $tmrCooldown.time_left <= 0):
 		cambia_stato_livello(statiLivello.IN_CORSO)
 		_livello = 1
 		imposta_livello(_livello)
@@ -59,6 +59,7 @@ func _process(_delta):
 	
 	if(statoLivello == statiLivello.GAME_OVER and Input.is_action_just_released("conferma")):
 		cambia_stato_livello(statiLivello.INIZIO)
+		$tmrCooldown.start(1.0)
 	
 func imposta_livello(livello):
 	var levelVar: Dictionary = imposta_variabili_livello(livello)

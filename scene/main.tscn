@@ -75,3 +75,6 @@ text = "Click per continuare"
 horizontal_alignment = 1
 
 [node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_wp4xf")]
+
+[node name="tmrCooldown" type="Timer" parent="." unique_id=1034026072]
+one_shot = true
