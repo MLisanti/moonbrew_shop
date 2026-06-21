@@ -12,7 +12,6 @@ func _ready():
 
 func show_features(element_list:String):
 	var i=0
-	
 	while(i<element_list.length()):
 		var nodo_elemento:Node2D = _elements_scene.instantiate()
 		var c = element_list.substr(i,1)

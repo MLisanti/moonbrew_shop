@@ -9,10 +9,11 @@ var maskGrab = ""
 """
 bugs:
 	- ad inizio livello controllare se esiste almeno una combinazione possibile
-	- una pozione può essere posata su picù clienti e li cura tutti e due
+	- una pozione può essere posata su più clienti e li cura tutti e due
 """
 
 var _livello = 1
+const LIVELLO_INIZIO = 1
 var _clienti_mancanti_prossimo_livello = 0
 
 enum statiLivello {INIZIO, IN_CORSO, FINITO, GAME_OVER}
@@ -22,16 +23,16 @@ func imposta_variabili_livello(livello:int) -> Dictionary:
 	var dict:Dictionary = { "potionElements": 2, "clientElements": 2, "goalPrice": 200.0 }
 	match livello:
 		
-		1: dict = { "potionElements": 1, "potionElementsDetail": "FAFA", "clientElements": 1, "clientElementsDetail": "FEFE", "goalPrice": 100.0 }
-		2: dict = { "potionElements": 1, "potionElementsDetail": "EVEV", "clientElements": 1, "clientElementsDetail": "AVAV", "goalPrice": 100.0 }
-		3: dict = { "potionElements": 1, "potionElementsDetail": "FAVE", "clientElements": 1, "clientElementsDetail": "FAVE", "goalPrice": 100.0 }
+		1: dict = { "potionElements": 1, "potionElementsDetail": "FAFA", "clientElements": 1, "clientElementsDetail": "FLFL", "goalPrice": 100.0 }
+		2: dict = { "potionElements": 1, "potionElementsDetail": "LVLV", "clientElements": 1, "clientElementsDetail": "AVAV", "goalPrice": 100.0 }
+		3: dict = { "potionElements": 1, "potionElementsDetail": "FAVL", "clientElements": 1, "clientElementsDetail": "FAVL", "goalPrice": 100.0 }
 		4: dict = { "potionElements": 1, "clientElements": 1, "goalPrice": 50.0 }
 		5: dict = { "potionElements": 1, "clientElements": 1, "goalPrice": 100.0 }
 		6: dict = { "potionElements": 2, "clientElements": 1, "goalPrice": 100.0 }
 		7: dict = { "potionElements": 2, "clientElements": 2, "goalPrice": 100.0 }
 		8: dict = { "potionElements": 2, "clientElements": 3, "goalPrice": 150.0 }
 		9: dict = { "potionElements": 3, "clientElements": 3, "goalPrice": 200.0 }
-		10: dict = { "potionElements": 3, "clientElements": 3, "goalPrice": 250.0 }
+		10: dict= { "potionElements": 3, "clientElements": 3, "goalPrice": 250.0 }
 		_: dict = { "potionElements": 3, "clientElements": 3, "goalPrice": 200.0 }
 	return dict
 
@@ -46,7 +47,7 @@ func _ready():
 func _process(_delta):
 	if(statoLivello == statiLivello.INIZIO and Input.is_action_just_released("conferma") and $tmrCooldown.time_left <= 0):
 		cambia_stato_livello(statiLivello.IN_CORSO)
-		_livello = 1
+		_livello = LIVELLO_INIZIO
 		imposta_livello(_livello)
 	
 	if(statoLivello == statiLivello.FINITO and Input.is_action_just_released("conferma")):
@@ -116,10 +117,8 @@ func _on_grab_end(nodo:Node2D):
 
 func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, client:Node2D, effects:String):
 	var guadagno = (potion.price / totalDiseases) * curedDiseases
-	var descGuadagno = "Ti meriti " + str(guadagno) + " su " + str(potion.price)
-	if(curedDiseases == 0):
-		descGuadagno = "Non ti meriti niente"
-	else:
+	var descGuadagno = "Non ti meriti niente"
+	if(curedDiseases > 0):
 		descGuadagno = "Ti meriti " + str(guadagno) + " su " + str(potion.price)
 	
 	$UI/sopra/VBoxContainer/lbl_effects.text = effects + descGuadagno
