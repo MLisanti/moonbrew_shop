@@ -1,8 +1,37 @@
 [gd_scene format=3 uid="uid://vibjky5l2jud"]
 
 [ext_resource type="Script" uid="uid://b25blng3ymu8u" path="res://scene/cliente.gd" id="1_ave0m"]
-[ext_resource type="Texture2D" uid="uid://wu63avfq721c" path="res://immagini/cliente.png" id="2_ave0m"]
+[ext_resource type="Texture2D" uid="uid://vsuvxsm0nnk2" path="res://immagini/clienti/arg_1.png" id="2_850jr"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_850jr"]
+[ext_resource type="Texture2D" uid="uid://baey4rptc2750" path="res://immagini/clienti/donna_tokimo.png" id="4_juvjd"]
+[ext_resource type="Texture2D" uid="uid://ph05ywxju2ma" path="res://immagini/clienti/donna_tokimo_2.png" id="5_bjo3b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3cc06"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_850jr")
+}],
+"loop": true,
+"name": &"arg_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_juvjd")
+}],
+"loop": true,
+"name": &"donna_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bjo3b")
+}],
+"loop": true,
+"name": &"donna_2",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ave0m"]
 size = Vector2(135, 131)
@@ -10,9 +39,11 @@ size = Vector2(135, 131)
 [node name="cliente" type="Area2D" unique_id=1132467231]
 script = ExtResource("1_ave0m")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1644912064]
-scale = Vector2(0.7201258, 0.7201258)
-texture = ExtResource("2_ave0m")
+[node name="grafica_cliente" type="AnimatedSprite2D" parent="." unique_id=2095076299]
+position = Vector2(1, 2)
+scale = Vector2(0.27475673, 0.27475673)
+sprite_frames = SubResource("SpriteFrames_3cc06")
+animation = &"arg_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=92986014]
 position = Vector2(-2.5, 0.5)
@@ -21,7 +52,7 @@ shape = SubResource("RectangleShape2D_ave0m")
 [node name="features" type="Node2D" parent="." unique_id=669867145]
 
 [node name="Marker2D" type="Marker2D" parent="features" unique_id=31309875]
-position = Vector2(-38, -104)
+position = Vector2(-57, -165)
 
 [node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_850jr")]
 

@@ -16,7 +16,7 @@ var _livello = 1
 const LIVELLO_INIZIO = 1
 var _clienti_mancanti_prossimo_livello = 0
 
-enum statiLivello {INIZIO, IN_CORSO, FINITO, GAME_OVER}
+enum statiLivello {INIZIO, IN_CORSO, FINITO_LIVELLO, GAME_OVER, FINITO_GIOCO}
 var statoLivello:statiLivello = statiLivello.IN_CORSO
 
 func imposta_variabili_livello(livello:int) -> Dictionary:
@@ -50,7 +50,7 @@ func _process(_delta):
 		_livello = LIVELLO_INIZIO
 		imposta_livello(_livello)
 	
-	if(statoLivello == statiLivello.FINITO and Input.is_action_just_released("conferma")):
+	if(statoLivello == statiLivello.FINITO_LIVELLO and Input.is_action_just_released("conferma")):
 		if(moneyGain < moneyGoal):
 			cambia_stato_livello(statiLivello.GAME_OVER)
 		else:
@@ -58,7 +58,8 @@ func _process(_delta):
 			_livello += 1
 			imposta_livello(_livello)
 	
-	if(statoLivello == statiLivello.GAME_OVER and Input.is_action_just_released("conferma")):
+	if((statoLivello == statiLivello.GAME_OVER or statoLivello == statiLivello.FINITO_GIOCO) 
+			and Input.is_action_just_released("conferma")):
 		cambia_stato_livello(statiLivello.INIZIO)
 		$tmrCooldown.start(1.0)
 	
@@ -70,6 +71,8 @@ func imposta_livello(livello):
 	moneyGoal = levelVar["goalPrice"]
 	
 	ui_update()
+	$UI/sopra/VBoxContainer/lbl_effects.text = ""
+	$UI/sopra/VBoxContainer/lbl_levelNumber.text = "Giorno "+ str(livello) + " / 10"
 	
 	var i=0
 	var pos = $pos_start_pozioni.position
@@ -134,16 +137,20 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 	_clienti_mancanti_prossimo_livello -= 1
 	
 	if(_clienti_mancanti_prossimo_livello == 0):
-		cambia_stato_livello(statiLivello.FINITO)
+		if(_livello < 10):
+			cambia_stato_livello(statiLivello.FINITO_LIVELLO)
+		else:
+			cambia_stato_livello(statiLivello.FINITO_GIOCO)
 		
 
 @onready var controlCentroMessaggi:Control = $UI/centro
 
-func mostra_fine_livello():
+func ui_mostra_fine_livello():
 	controlCentroMessaggi.visible = true
 	
 	$UI/centro/VBoxContainer/lblAzione.text = "Spazio per continuare"
 	if(moneyGain < moneyGoal):
+		$UI/centro/VBoxContainer/lblAzione.text = "Spazio per ricominciare"
 		$UI/centro/VBoxContainer/lblMessaggio.text = "Non sei riuscita a guadagnare il minimo..."
 	else:
 		$UI/centro/VBoxContainer/lblMessaggio.text = "Hai guadagnato abbastanza!"
@@ -155,8 +162,13 @@ func ui_mostra_inizio():
 
 func ui_mostra_game_over():
 	controlCentroMessaggi.visible = true
+	$UI/centro/VBoxContainer/lblAzione.text = "Spazio per ricominciare"
+	$UI/centro/VBoxContainer/lblMessaggio.text = "Sei andata in bancarotta..."
+	
+func ui_mostra_game_over_vinto():
+	controlCentroMessaggi.visible = true
 	$UI/centro/VBoxContainer/lblAzione.text = "Spazio per continuare"
-	$UI/centro/VBoxContainer/lblMessaggio.text = "Sei andata in bancarotta"
+	$UI/centro/VBoxContainer/lblMessaggio.text = "Hai curato tutti :rawr: !!"
 
 func cambia_stato_livello (nuovoStato:statiLivello):
 	var precedente = statoLivello
@@ -168,10 +180,13 @@ func cambia_stato_livello (nuovoStato:statiLivello):
 	if(nuovoStato == statiLivello.INIZIO):
 		ui_mostra_inizio()
 	
-	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO):
-		mostra_fine_livello()
+	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO_LIVELLO):
+		ui_mostra_fine_livello()
+	
+	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO_GIOCO):
+		ui_mostra_game_over_vinto()
 		
-	if(precedente == statiLivello.FINITO and nuovoStato == statiLivello.GAME_OVER):
+	if(precedente == statiLivello.FINITO_LIVELLO and nuovoStato == statiLivello.GAME_OVER):
 		ui_mostra_game_over()
 
 func crea_pozione(indice:int, elementi:String, prezzo:float, posizione:Vector2):

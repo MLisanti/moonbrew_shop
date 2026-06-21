@@ -8,20 +8,32 @@ var _elements_scene = preload("res://scene/elemento.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	show_features(disease)
+	var nodoSprite:AnimatedSprite2D = $grafica_cliente
+	var casuale = randi_range(0, nodoSprite.sprite_frames.get_animation_names().size()-1)
+	nodoSprite.animation = nodoSprite.sprite_frames.get_animation_names()[casuale]
 	
-
+	
 func show_features(element_list:String):
 	var i=0
-	while(i<element_list.length()):
+	var riga = 0
+	var colonna = 0
+	while(i < element_list.length()):
 		var nodo_elemento:Node2D = _elements_scene.instantiate()
 		var c = element_list.substr(i,1)
 		
 		nodo_elemento.set_type(c)
 		nodo_elemento.position = $features/Marker2D.position
-		nodo_elemento.position.x = $features/Marker2D.position.x + (i*50)
+		nodo_elemento.position.x = $features/Marker2D.position.x + (colonna*50)
+		nodo_elemento.position.y = $features/Marker2D.position.y - (riga*50)
 		
 		$features.add_child(nodo_elemento)
 		i += 1
+		
+		colonna += 1
+		
+		if(i>0 and i % 2 == 0): 
+			riga += 1
+			colonna = 0
 
 func creaMask (stringa:String) -> String:
 	var i = 0

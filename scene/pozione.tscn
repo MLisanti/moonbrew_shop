@@ -1,7 +1,36 @@
 [gd_scene format=3 uid="uid://ycdc2eboahxd"]
 
 [ext_resource type="Script" uid="uid://dbp0rqf4nixbh" path="res://scene/pozione.gd" id="1_3qbha"]
-[ext_resource type="Texture2D" uid="uid://cdqjsdxgliso7" path="res://immagini/pozione.png" id="2_3qbha"]
+[ext_resource type="Texture2D" uid="uid://dlt6m7y46s0vj" path="res://immagini/clienti/pozione1.png" id="2_x8jg1"]
+[ext_resource type="Texture2D" uid="uid://c8g141hlw1s5q" path="res://immagini/clienti/pozione2.png" id="3_xed2p"]
+[ext_resource type="Texture2D" uid="uid://bcjkg3el7w532" path="res://immagini/clienti/pozione3.png" id="4_wlq7w"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ri02b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_x8jg1")
+}],
+"loop": true,
+"name": &"poz_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xed2p")
+}],
+"loop": true,
+"name": &"poz_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_wlq7w")
+}],
+"loop": true,
+"name": &"poz_3",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qbha"]
 radius = 60.0
@@ -10,9 +39,10 @@ height = 120.0
 [node name="pozione" type="Area2D" unique_id=1292925384]
 script = ExtResource("1_3qbha")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=683860518]
-scale = Vector2(0.89830506, 0.8983052)
-texture = ExtResource("2_3qbha")
+[node name="grafica_pozione" type="AnimatedSprite2D" parent="." unique_id=943024140]
+scale = Vector2(0.6455811, 0.6455812)
+sprite_frames = SubResource("SpriteFrames_ri02b")
+animation = &"poz_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911560465]
 shape = SubResource("CapsuleShape2D_3qbha")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu44hocddxgv5"
-path="res://.godot/imported/bancone.png-0940e2e2c5e46a77ddf1fac02bf2dfc9.ctex"
+uid="uid://c27ppl8ol35pd"
+path="res://.godot/imported/donna_tokimo.jpg-9b983daa3610c77c835856f62ed7d5da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://immagini/bancone.png"
-dest_files=["res://.godot/imported/bancone.png-0940e2e2c5e46a77ddf1fac02bf2dfc9.ctex"]
+source_file="res://immagini/clienti/donna_tokimo.jpg"
+dest_files=["res://.godot/imported/donna_tokimo.jpg-9b983daa3610c77c835856f62ed7d5da.ctex"]
 
 [params]
 

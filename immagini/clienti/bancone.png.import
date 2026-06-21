@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3pjj8o5y6byg"
-path="res://.godot/imported/strega.png-c56fcfbf2e712ae0a7446f2c795ce1be.ctex"
+uid="uid://bu44hocddxgv5"
+path="res://.godot/imported/bancone.png-572483ead87006c719e746a70f4cfd65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://immagini/strega.png"
-dest_files=["res://.godot/imported/strega.png-c56fcfbf2e712ae0a7446f2c795ce1be.ctex"]
+source_file="res://immagini/clienti/bancone.png"
+dest_files=["res://.godot/imported/bancone.png-572483ead87006c719e746a70f4cfd65.ctex"]
 
 [params]
 
