@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ckjhihpjdwfoj" path="res://immagini/clienti/strega_dragonnes_incredibile.png" id="3_0ha60"]
 [ext_resource type="Texture2D" uid="uid://bu44hocddxgv5" path="res://immagini/clienti/bancone.png" id="3_brvut"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
+[ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
 
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_p1hux")
@@ -39,6 +40,7 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
+theme = ExtResource("4_0ha60")
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 
@@ -47,6 +49,7 @@ layout_mode = 2
 
 [node name="lbl_levelNumber" type="Label" parent="UI/sopra/VBoxContainer" unique_id=710765464]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Giorno 1"
 
 [node name="lbl_money_goal" type="Label" parent="UI/sopra/VBoxContainer" unique_id=1024936020]
@@ -56,6 +59,7 @@ text = "GUADAGNO / VENDUTO"
 
 [node name="lbl_effects" type="Label" parent="UI/sopra/VBoxContainer" unique_id=461856114]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Cure effettuate"
 
 [node name="centro" type="MarginContainer" parent="UI" unique_id=630878326]
@@ -66,6 +70,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
+theme = ExtResource("4_0ha60")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/centro" unique_id=306350036]
 layout_mode = 2

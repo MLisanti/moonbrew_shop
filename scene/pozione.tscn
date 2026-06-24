@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dlt6m7y46s0vj" path="res://immagini/clienti/pozione1.png" id="2_x8jg1"]
 [ext_resource type="Texture2D" uid="uid://c8g141hlw1s5q" path="res://immagini/clienti/pozione2.png" id="3_xed2p"]
 [ext_resource type="Texture2D" uid="uid://bcjkg3el7w532" path="res://immagini/clienti/pozione3.png" id="4_wlq7w"]
+[ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="5_xed2p"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ri02b"]
 animations = [{
@@ -47,18 +48,28 @@ animation = &"poz_2"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911560465]
 shape = SubResource("CapsuleShape2D_3qbha")
 
-[node name="lbl_price" type="Label" parent="." unique_id=2080580469]
+[node name="lblPrice" type="Label" parent="." unique_id=2080580469]
 offset_left = -52.0
 offset_top = 73.0
 offset_right = 59.0
 offset_bottom = 96.0
+theme = ExtResource("5_xed2p")
+theme_override_font_sizes/font_size = 26
 text = "0.0 c"
 horizontal_alignment = 1
+
+[node name="lblDebug" type="Label" parent="." unique_id=560259839]
+offset_top = 117.0
+offset_right = 40.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 30
+text = "test"
 
 [node name="features" type="Node2D" parent="." unique_id=1523772218]
 
 [node name="Marker2D" type="Marker2D" parent="features" unique_id=754010656]
 position = Vector2(-35, -106)
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

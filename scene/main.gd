@@ -35,9 +35,6 @@ func imposta_variabili_livello(livello:int) -> Dictionary:
 		10: dict= { "potionElements": 3, "clientElements": 3, "goalPrice": 250.0 }
 		_: dict = { "potionElements": 3, "clientElements": 3, "goalPrice": 200.0 }
 	return dict
-
-func rand_price():
-	return randi_range(1, 3) * 50
 	
 
 # Called when the node enters the scene tree for the first time.
@@ -74,6 +71,8 @@ func imposta_livello(livello):
 	$UI/sopra/VBoxContainer/lbl_effects.text = ""
 	$UI/sopra/VBoxContainer/lbl_levelNumber.text = "Giorno "+ str(livello) + " / 10"
 	
+	maskGrab = ""
+	
 	var i=0
 	var pos = $pos_start_pozioni.position
 	
@@ -85,11 +84,15 @@ func imposta_livello(livello):
 		else:
 			for j in range(nElementi):
 				elementi += $helperElementi.scegli_elemento_casuale()
-			
-		crea_pozione(i, elementi, rand_price(), pos)
+		
+		var importanza = randi_range(1, 3)
+		crea_pozione(i, importanza, elementi, importanza * 50, pos)
 		pos.x += 120
 		
+		maskGrab += "0"
+		
 		i+=1
+		
 	
 	i=0
 	pos = $pos_start_clienti.position
@@ -122,7 +125,7 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 	var guadagno = (potion.price / totalDiseases) * curedDiseases
 	var descGuadagno = "Non ti meriti niente"
 	if(curedDiseases > 0):
-		descGuadagno = "Ti meriti " + str(guadagno) + " su " + str(potion.price)
+		descGuadagno = "Ti meriti " + str(round(moneyGain)) + " su " + str(potion.price)
 	
 	$UI/sopra/VBoxContainer/lbl_effects.text = effects + descGuadagno
 	
@@ -189,22 +192,20 @@ func cambia_stato_livello (nuovoStato:statiLivello):
 	if(precedente == statiLivello.FINITO_LIVELLO and nuovoStato == statiLivello.GAME_OVER):
 		ui_mostra_game_over()
 
-func crea_pozione(indice:int, elementi:String, prezzo:float, posizione:Vector2):
+func crea_pozione(indice:int, importanza:int, elementi:String, prezzo:float, posizione:Vector2):
 	var nodoPozione:Node2D = _scena_pozione.instantiate()
 	nodoPozione.name = "pozione" + str(indice)
 	nodoPozione.elements = elementi
 	nodoPozione.price = prezzo
 	nodoPozione.position = posizione
+	nodoPozione.imposta_scala(importanza)
 	$pozioni.add_child(nodoPozione)
 	
-	var i=0
-	for pozione:Node2D in $pozioni.get_children():
-		pozione.grabIndex = i
-		
-		maskGrab += "0"
-		pozione.connect("grab_start", _on_grab_start)
-		pozione.connect("grab_end", _on_grab_end)
-		i+=1
+	nodoPozione.grabIndex = indice
+	nodoPozione.connect("grab_start", _on_grab_start)
+	nodoPozione.connect("grab_end", _on_grab_end)
+	
+	
 
 func crea_cliente(elementi:String, posizione:Vector2):
 	var nodoCliente:Node2D = _scena_cliente.instantiate()
@@ -212,8 +213,7 @@ func crea_cliente(elementi:String, posizione:Vector2):
 	nodoCliente.position = posizione
 	$clienti.add_child(nodoCliente)
 	
-	for cliente:Node2D in $clienti.get_children():
-		cliente.connect("finish", _on_client_finish)
+	nodoCliente.connect("finish", _on_client_finish)
 
 func ui_gameOver():
 	pass

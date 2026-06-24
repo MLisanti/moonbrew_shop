@@ -21,6 +21,13 @@ func _ready():
 	var casuale = randi_range(0, nodoSprite.sprite_frames.get_animation_names().size()-1)
 	nodoSprite.animation = nodoSprite.sprite_frames.get_animation_names()[casuale]
 
+func imposta_scala(grandezza:int):
+	match grandezza:
+		1:	$grafica_pozione.scale = Vector2(0.36, 0.36)
+		2:	$grafica_pozione.scale = Vector2(0.64, 0.64)
+		3:	$grafica_pozione.scale = Vector2(0.83, 0.83)
+		_:	$grafica_pozione.scale = Vector2(0.64, 0.64)
+
 func show_features(element_list:String):
 	var i=0
 	var riga = 0
@@ -45,6 +52,8 @@ func show_features(element_list:String):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	
+	
 	var mouse_position = get_viewport().get_mouse_position()
 	if(_grabStarted == false and _mouseInPosition and Input.is_action_pressed("click")):
 		_grabStarted = true
@@ -65,3 +74,8 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	_mouseInPosition = false
+
+
+func _on_input_event(viewport, event, shape_idx):
+	if(event is InputEventScreenTouch):
+		print("Touch: ", event.is_pressed())
