@@ -16,7 +16,7 @@ var _livello = 1
 const LIVELLO_INIZIO = 1
 var _clienti_mancanti_prossimo_livello = 0
 
-enum statiLivello {INIZIO, IN_CORSO, FINITO_LIVELLO, GAME_OVER, FINITO_GIOCO}
+enum statiLivello {INIZIO, IN_CORSO, FINITO_LIVELLO, GAME_OVER_PERSO, GAME_OVER_VINTO}
 var statoLivello:statiLivello = statiLivello.IN_CORSO
 
 func imposta_variabili_livello(livello:int) -> Dictionary:
@@ -49,13 +49,13 @@ func _process(_delta):
 	
 	if(statoLivello == statiLivello.FINITO_LIVELLO and Input.is_action_just_released("conferma")):
 		if(moneyGain < moneyGoal):
-			cambia_stato_livello(statiLivello.GAME_OVER)
+			cambia_stato_livello(statiLivello.GAME_OVER_PERSO)
 		else:
 			cambia_stato_livello(statiLivello.IN_CORSO)
 			_livello += 1
 			imposta_livello(_livello)
 	
-	if((statoLivello == statiLivello.GAME_OVER or statoLivello == statiLivello.FINITO_GIOCO) 
+	if((statoLivello == statiLivello.GAME_OVER_PERSO or statoLivello == statiLivello.GAME_OVER_VINTO) 
 			and Input.is_action_just_released("conferma")):
 		cambia_stato_livello(statiLivello.INIZIO)
 		$tmrCooldown.start(1.0)
@@ -143,7 +143,7 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 		if(_livello < 10):
 			cambia_stato_livello(statiLivello.FINITO_LIVELLO)
 		else:
-			cambia_stato_livello(statiLivello.FINITO_GIOCO)
+			cambia_stato_livello(statiLivello.GAME_OVER_VINTO)
 		
 
 @onready var controlCentroMessaggi:Control = $UI/centro
@@ -186,10 +186,10 @@ func cambia_stato_livello (nuovoStato:statiLivello):
 	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO_LIVELLO):
 		ui_mostra_fine_livello()
 	
-	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO_GIOCO):
+	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.GAME_OVER_VINTO):
 		ui_mostra_game_over_vinto()
 		
-	if(precedente == statiLivello.FINITO_LIVELLO and nuovoStato == statiLivello.GAME_OVER):
+	if(precedente == statiLivello.FINITO_LIVELLO and nuovoStato == statiLivello.GAME_OVER_PERSO):
 		ui_mostra_game_over()
 
 func crea_pozione(indice:int, importanza:int, elementi:String, prezzo:float, posizione:Vector2):
