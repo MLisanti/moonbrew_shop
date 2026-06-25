@@ -15,7 +15,7 @@ var grabIndex = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	show_features(elements)
-	$lbl_price.text = str(price) + " c"
+	$lblPrice.text = str(price) + " c"
 	
 	var nodoSprite:AnimatedSprite2D = $grafica_pozione
 	var casuale = randi_range(0, nodoSprite.sprite_frames.get_animation_names().size()-1)

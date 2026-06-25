@@ -125,7 +125,7 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 	var guadagno = (potion.price / totalDiseases) * curedDiseases
 	var descGuadagno = "Non ti meriti niente"
 	if(curedDiseases > 0):
-		descGuadagno = "Ti meriti " + str(round(moneyGain)) + " su " + str(potion.price)
+		descGuadagno = "Ti meriti " + str(round(guadagno)) + " su " + str(potion.price)
 	
 	$UI/sopra/VBoxContainer/lbl_effects.text = effects + descGuadagno
 	
