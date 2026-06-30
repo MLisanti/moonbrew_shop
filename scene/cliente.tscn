@@ -37,6 +37,7 @@ animations = [{
 size = Vector2(135, 131)
 
 [node name="cliente" type="Area2D" unique_id=1132467231]
+collision_layer = 2
 script = ExtResource("1_ave0m")
 
 [node name="grafica_cliente" type="AnimatedSprite2D" parent="." unique_id=2095076299]

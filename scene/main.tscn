@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ha60"]
+size = Vector2(362, 279)
+
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_p1hux")
 
@@ -91,3 +94,28 @@ horizontal_alignment = 1
 
 [node name="tmrCooldown" type="Timer" parent="." unique_id=1034026072]
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1912468712]
+position = Vector2(810, 379)
+
+[node name="lblStatoInput" type="Label" parent="Area2D" unique_id=1516874724]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 250.0
+offset_top = 218.0
+offset_right = 346.0
+offset_bottom = 267.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+text = "TEST TOUCH"
+horizontal_alignment = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1503405931]
+position = Vector2(171, 129.5)
+shape = SubResource("RectangleShape2D_0ha60")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

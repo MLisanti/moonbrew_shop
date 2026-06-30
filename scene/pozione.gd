@@ -5,7 +5,8 @@ var _elements_scene = preload("res://scene/elemento.tscn")
 var _mouseInPosition:bool = false
 signal grab_start(node:Node2D)
 signal grab_end(node:Node2D)
-var _grabStarted = false
+var _dragging = false
+const _radius_drag:int = 50
 var grabPermission = false
 var grabIndex = 0
 
@@ -52,22 +53,7 @@ func show_features(element_list:String):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	
-	
-	var mouse_position = get_viewport().get_mouse_position()
-	if(_grabStarted == false and _mouseInPosition and Input.is_action_pressed("click")):
-		_grabStarted = true
-		grab_start.emit(self)
-	
-	if(_grabStarted and grabPermission):
-		self.position = mouse_position
-	
-	if(_grabStarted and Input.is_action_just_released("click")):
-		_grabStarted = false
-		grabPermission = false
-		grab_end.emit(self)
-		
-		
+	pass
 
 func _on_mouse_entered():
 	_mouseInPosition = true
@@ -76,6 +62,48 @@ func _on_mouse_exited():
 	_mouseInPosition = false
 
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, event:InputEvent, _shape_idx):
+	
+	#touch
 	if(event is InputEventScreenTouch):
-		print("Touch: ", event.is_pressed())
+		if((event.position - self.global_position).length() < _radius_drag):
+			if(not _dragging and event.pressed):
+				_dragging = true
+				grab_start.emit(self)
+			if(_dragging and not event.pressed):
+				_dragging = false
+				grab_end.emit(self)
+	
+	#mouse
+	if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
+		if((self.global_position - event.position).length() < _radius_drag):
+			if(not _dragging and event.pressed):
+				_dragging = true
+				grab_start.emit(self)
+				#print("Partito Grab")
+			if(_dragging and not event.pressed):
+				_dragging = false
+				grab_end.emit(self)
+				#print("Fine Grab")
+				
+	
+	#drag
+	if(_dragging):
+		self.global_position = event.position
+	
+	"""
+	if(not _grabStarted and event.is_pressed()):
+		_grabStarted = true
+		grab_start.emit(self)
+		print("Partito Grab")
+		
+	if(_grabStarted and grabPermission):
+		self.position = event.position
+		print("Continua")
+	
+	if(grabPermission and event.is_canceled()):
+		_grabStarted = false
+		grabPermission = false
+		grab_end.emit(self)
+		print("Fine Grab")
+	"""

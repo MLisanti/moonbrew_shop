@@ -1,5 +1,7 @@
 extends Node2D
 
+#https://www.youtube.com/watch?v=YGqq58-CN-A
+
 @export var moneyGoal:float = 100
 var moneyGain:float = 0
 var _scena_pozione = preload("res://scene/pozione.tscn")
@@ -9,7 +11,13 @@ var maskGrab = ""
 """
 bugs:
 	- ad inizio livello controllare se esiste almeno una combinazione possibile
-	- una pozione può essere posata su più clienti e li cura tutti e due
+	- una pozione può essere posata su più clienti e li cura tutti e due:
+		spostare pozione ed evidenziare cliente che cura.
+		
+	- UI:
+		- grafica
+		- suoni
+		- musica
 """
 
 var _livello = 1
@@ -117,6 +125,7 @@ func _on_grab_start(nodo:Node2D):
 	if(not maskGrab.contains("1")):
 		maskGrab[nodo.grabIndex] = "1"
 		nodo.grabPermission = true
+	
 
 func _on_grab_end(nodo:Node2D):
 	maskGrab[nodo.grabIndex] = "0"
@@ -229,3 +238,9 @@ func ui_update():
 		lblMoney.set("theme_override_colors/font_color", Color.RED)
 	else:
 		lblMoney.set("theme_override_colors/font_color", Color.WHITE)
+
+
+func _on_area_2d_input_event(viewport, event: InputEvent, shape_idx):
+	#if(event is InputEventScreenTouch):
+	
+	$Area2D/lblStatoInput.text = "Touch: " + str(event.is_pressed()) + "\n" + event.as_text()
