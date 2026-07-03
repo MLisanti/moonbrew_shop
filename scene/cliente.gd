@@ -43,22 +43,19 @@ func creaMask (stringa:String) -> String:
 		i += 1
 	return res
 
-func _on_area_entered(area:Area2D):
-	
+func curaCliente(objPozione:Area2D):
 	var potion:Node2D = null
 	var i:int=0
 	var j:int=0
-	
-	var howManyCured:int=0
 	
 	var effects=""
 	
 	var maskPozioniUsate = "0"
 	var maskMalattieCurate = "0"
 	
-	if(area.name.to_lower().begins_with("pozione")):
+	if(objPozione.name.to_lower().begins_with("pozione")):
 		
-		potion = area
+		potion = objPozione
 		
 		var pElements:String = potion.elements
 		maskPozioniUsate = creaMask(pElements)
@@ -68,25 +65,29 @@ func _on_area_entered(area:Area2D):
 		print("Malattie: " + disease)
 		
 		while(i < disease.length()):
-			var m = disease.substr(i,1)
-			var c = ""
+			var dis = disease.substr(i,1)
+			var cure = ""
 			j = 0
 			
 			while(j<pElements.length()):
 				
-				c = pElements.substr(j,1)
-				if(maskPozioniUsate[j] == "0" and $helperElementi.is_stronger(c, m)):
-					effects += ("Curo " + $helperElementi.get_type_name(m) + " con " + $helperElementi.get_type_name(c) + "...\n")
+				cure = pElements.substr(j,1)
+				if(maskPozioniUsate[j] == "0" and $helperElementi.is_stronger(cure, dis)):
+					effects += ($helperElementi.get_type_name_for_UI(cure) + " cures " + $helperElementi.get_type_name_for_UI(dis) + "...\n")
 					
 					maskMalattieCurate[i] = "1"
 					maskPozioniUsate[j] = "1"
-					
-					howManyCured += 1
 					
 					#salta a prossima malattia
 					break
 				
 				j+=1
 			i+=1
-			
-		finish.emit(howManyCured, disease.length(), potion, self, effects)
+		
+		finish.emit(maskMalattieCurate.count("1"), disease.length(), potion, self, effects)
+
+func mostraConfermaCura(val:bool):
+	if(val):
+		$lblAzione.text = "Give!"
+	else:
+		$lblAzione.text = ""

@@ -1,13 +1,48 @@
 [gd_scene format=3 uid="uid://be75w8yjyxed8"]
 
 [ext_resource type="Script" uid="uid://183vn8g4n6kb" path="res://scene/main.gd" id="1_p1hux"]
-[ext_resource type="Texture2D" uid="uid://ckjhihpjdwfoj" path="res://immagini/clienti/strega_dragonnes_incredibile.png" id="3_0ha60"]
 [ext_resource type="Texture2D" uid="uid://bu44hocddxgv5" path="res://immagini/clienti/bancone.png" id="3_brvut"]
+[ext_resource type="Texture2D" uid="uid://c2hkx6vlw3icl" path="res://immagini/farmacista/farmac_1.png" id="3_p1hux"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
+[ext_resource type="Texture2D" uid="uid://d16k257h8amyi" path="res://immagini/farmacista/farmac_4.png" id="4_of57s"]
+[ext_resource type="Texture2D" uid="uid://b1ljuiy70qhcq" path="res://immagini/farmacista/farmac_2.png" id="5_b5f6u"]
+[ext_resource type="Texture2D" uid="uid://b3ap2ib4hx50m" path="res://immagini/farmacista/farmac_3.png" id="5_of57s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ha60"]
-size = Vector2(362, 279)
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqoya"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_b5f6u")
+}],
+"loop": true,
+"name": &"finito_livello",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_of57s")
+}],
+"loop": true,
+"name": &"game_over_perso",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_of57s")
+}],
+"loop": true,
+"name": &"game_over_vinto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_p1hux")
+}],
+"loop": true,
+"name": &"in_corso",
+"speed": 5.0
+}]
 
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_p1hux")
@@ -25,14 +60,15 @@ position = Vector2(621, 500)
 [node name="strega_oggetti" type="Node2D" parent="." unique_id=1176392839]
 
 [node name="bancone" type="Sprite2D" parent="strega_oggetti" unique_id=1159495521]
-position = Vector2(366.00003, 504)
-scale = Vector2(0.62929785, 0.54907966)
+position = Vector2(337.8614, 583.2545)
+scale = Vector2(0.52394295, 0.59714925)
 texture = ExtResource("3_brvut")
 
-[node name="strega" type="Sprite2D" parent="strega_oggetti" unique_id=1469148481]
-position = Vector2(211, 479)
-scale = Vector2(0.40068603, 0.44382498)
-texture = ExtResource("3_0ha60")
+[node name="strega" type="AnimatedSprite2D" parent="strega_oggetti" unique_id=1463685596]
+position = Vector2(212.86137, 477.2545)
+scale = Vector2(0.50181687, 0.5558439)
+sprite_frames = SubResource("SpriteFrames_tqoya")
+animation = &"in_corso"
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=504331853]
 
@@ -95,27 +131,6 @@ horizontal_alignment = 1
 [node name="tmrCooldown" type="Timer" parent="." unique_id=1034026072]
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1912468712]
-position = Vector2(810, 379)
+[node name="suoni" type="Node2D" parent="." unique_id=1091512550]
 
-[node name="lblStatoInput" type="Label" parent="Area2D" unique_id=1516874724]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 250.0
-offset_top = 218.0
-offset_right = 346.0
-offset_bottom = 267.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 8
-text = "TEST TOUCH"
-horizontal_alignment = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1503405931]
-position = Vector2(171, 129.5)
-shape = SubResource("RectangleShape2D_0ha60")
-
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[node name="glass_clink" type="AudioStreamPlayer2D" parent="suoni" unique_id=758348612]

@@ -29,3 +29,16 @@ func get_type_name(type:String):
 			return "legno"
 		_:
 			return ""
+
+func get_type_name_for_UI(type:String):
+	match type:
+		"F":
+			return "fire"
+		"A":
+			return "water"
+		"V":
+			return "wind"
+		"L":
+			return "wood"
+		_:
+			return ""

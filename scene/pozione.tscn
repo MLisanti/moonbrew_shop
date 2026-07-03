@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://ycdc2eboahxd"]
 
 [ext_resource type="Script" uid="uid://dbp0rqf4nixbh" path="res://scene/pozione.gd" id="1_3qbha"]
-[ext_resource type="Texture2D" uid="uid://dlt6m7y46s0vj" path="res://immagini/clienti/pozione1.png" id="2_x8jg1"]
-[ext_resource type="Texture2D" uid="uid://c8g141hlw1s5q" path="res://immagini/clienti/pozione2.png" id="3_xed2p"]
-[ext_resource type="Texture2D" uid="uid://bcjkg3el7w532" path="res://immagini/clienti/pozione3.png" id="4_wlq7w"]
+[ext_resource type="Texture2D" uid="uid://cwwuklvfmiqkx" path="res://grafica_disegni/UI/pozione_1.png" id="2_wlq7w"]
+[ext_resource type="Texture2D" uid="uid://ecvcroujlq3m" path="res://grafica_disegni/UI/pozione_2.png" id="3_ri02b"]
+[ext_resource type="Texture2D" uid="uid://blavvaa7kqxxp" path="res://grafica_disegni/UI/pozione_3.png" id="4_amxvd"]
+[ext_resource type="Texture2D" uid="uid://bv8ro6v1sv8il" path="res://grafica_disegni/UI/pozione_4.png" id="5_lcpjq"]
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="5_xed2p"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ri02b"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_x8jg1")
+"texture": ExtResource("2_wlq7w")
 }],
 "loop": true,
 "name": &"poz_1",
@@ -18,7 +19,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_xed2p")
+"texture": ExtResource("3_ri02b")
 }],
 "loop": true,
 "name": &"poz_2",
@@ -26,10 +27,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_wlq7w")
+"texture": ExtResource("4_amxvd")
 }],
 "loop": true,
 "name": &"poz_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_lcpjq")
+}],
+"loop": true,
+"name": &"poz_4",
 "speed": 5.0
 }]
 
@@ -37,14 +46,14 @@ animations = [{
 radius = 60.0
 height = 120.0
 
-[node name="pozione" type="Area2D" unique_id=1292925384]
+[node name="pozione" type="Area2D" unique_id=1292925384 groups=["clienti"]]
 collision_mask = 2
 script = ExtResource("1_3qbha")
 
 [node name="grafica_pozione" type="AnimatedSprite2D" parent="." unique_id=943024140]
 scale = Vector2(0.6455811, 0.6455812)
 sprite_frames = SubResource("SpriteFrames_ri02b")
-animation = &"poz_2"
+animation = &"poz_4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911560465]
 shape = SubResource("CapsuleShape2D_3qbha")
@@ -82,6 +91,8 @@ horizontal_alignment = 1
 [node name="Marker2D" type="Marker2D" parent="features" unique_id=754010656]
 position = Vector2(-35, -106)
 
+[node name="audio_clink" type="AudioStreamPlayer2D" parent="." unique_id=771879207]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

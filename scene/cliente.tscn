@@ -1,35 +1,54 @@
 [gd_scene format=3 uid="uid://vibjky5l2jud"]
 
 [ext_resource type="Script" uid="uid://b25blng3ymu8u" path="res://scene/cliente.gd" id="1_ave0m"]
-[ext_resource type="Texture2D" uid="uid://vsuvxsm0nnk2" path="res://immagini/clienti/arg_1.png" id="2_850jr"]
+[ext_resource type="Texture2D" uid="uid://di3grimeu1jwi" path="res://immagini/clienti/cl_argoniana.png" id="2_onsxu"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_850jr"]
-[ext_resource type="Texture2D" uid="uid://baey4rptc2750" path="res://immagini/clienti/donna_tokimo.png" id="4_juvjd"]
-[ext_resource type="Texture2D" uid="uid://ph05ywxju2ma" path="res://immagini/clienti/donna_tokimo_2.png" id="5_bjo3b"]
+[ext_resource type="Texture2D" uid="uid://cx7dgyaamdoxg" path="res://immagini/clienti/cl_argoniano.png" id="3_meip3"]
+[ext_resource type="Texture2D" uid="uid://bhpibjjg8gikg" path="res://immagini/clienti/cl_argoniano_2.png" id="4_cqb54"]
+[ext_resource type="Texture2D" uid="uid://bpjnmus7e2ovy" path="res://immagini/clienti/cl_donna.png" id="5_l87ma"]
+[ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="6_juvjd"]
+[ext_resource type="Texture2D" uid="uid://cvry8a7ikcy7m" path="res://immagini/clienti/cl_uomo.png" id="6_sjsao"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3cc06"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_850jr")
+"texture": ExtResource("2_onsxu")
 }],
 "loop": true,
-"name": &"arg_1",
+"name": &"argoniana",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_juvjd")
+"texture": ExtResource("3_meip3")
 }],
 "loop": true,
-"name": &"donna_1",
+"name": &"argoniano",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_bjo3b")
+"texture": ExtResource("4_cqb54")
 }],
 "loop": true,
-"name": &"donna_2",
+"name": &"argoniano_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_l87ma")
+}],
+"loop": true,
+"name": &"donna",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_sjsao")
+}],
+"loop": true,
+"name": &"uomo",
 "speed": 5.0
 }]
 
@@ -38,13 +57,14 @@ size = Vector2(135, 131)
 
 [node name="cliente" type="Area2D" unique_id=1132467231]
 collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_ave0m")
 
 [node name="grafica_cliente" type="AnimatedSprite2D" parent="." unique_id=2095076299]
 position = Vector2(1, 2)
 scale = Vector2(0.27475673, 0.27475673)
 sprite_frames = SubResource("SpriteFrames_3cc06")
-animation = &"arg_1"
+animation = &"uomo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=92986014]
 position = Vector2(-2.5, 0.5)
@@ -57,4 +77,9 @@ position = Vector2(-57, -165)
 
 [node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_850jr")]
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[node name="lblAzione" type="Label" parent="." unique_id=999631464]
+offset_left = -29.0
+offset_top = -165.0
+offset_right = 11.0
+offset_bottom = -142.0
+theme = ExtResource("6_juvjd")

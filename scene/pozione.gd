@@ -2,13 +2,23 @@ extends Area2D
 
 var _elements_scene = preload("res://scene/elemento.tscn")
 
-var _mouseInPosition:bool = false
+
 signal grab_start(node:Node2D)
 signal grab_end(node:Node2D)
+
 var _dragging = false
 const _radius_drag:int = 50
 var grabPermission = false
 var grabIndex = 0
+
+
+var rand=RandomNumberGenerator.new()
+
+var audio1 = preload("res://suoni/glass_clink_1.mp3")
+
+var _numClientiPresi = 0
+var _clienteDaCurare:Area2D = null
+
 
 @export var price:float = 100.0
 @export var elements:String = "FA"
@@ -55,12 +65,10 @@ func show_features(element_list:String):
 func _process(_delta):
 	pass
 
-func _on_mouse_entered():
-	_mouseInPosition = true
-
-func _on_mouse_exited():
-	_mouseInPosition = false
-
+func audio_glass_clink():
+	var i = rand.randi_range(1, 3)
+	$audio_clink.stream = audio1
+	$audio_clink.play()
 
 func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 	
@@ -80,30 +88,38 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 			if(not _dragging and event.pressed):
 				_dragging = true
 				grab_start.emit(self)
-				#print("Partito Grab")
 			if(_dragging and not event.pressed):
 				_dragging = false
 				grab_end.emit(self)
-				#print("Fine Grab")
 				
-	
 	#drag
 	if(_dragging):
 		self.global_position = event.position
 	
-	"""
-	if(not _grabStarted and event.is_pressed()):
-		_grabStarted = true
-		grab_start.emit(self)
-		print("Partito Grab")
+	#cura il cliente solo se ne hai selezionato uno e non di piu
+	if(_dragging == false and _numClientiPresi == 1 and _clienteDaCurare != null):
+		_clienteDaCurare.curaCliente(self)
+		print("effettua cura...")
+		_numClientiPresi = 0
+		_clienteDaCurare = null
 		
-	if(_grabStarted and grabPermission):
-		self.position = event.position
-		print("Continua")
-	
-	if(grabPermission and event.is_canceled()):
-		_grabStarted = false
-		grabPermission = false
-		grab_end.emit(self)
-		print("Fine Grab")
-	"""
+#TODO: non si capisce bene il cliente che verrà curato ....
+
+func _on_area_entered(area):
+	if(area.is_in_group("clienti")):
+		var cliente:Area2D = area
+		cliente.mostraConfermaCura(true)
+		_numClientiPresi += 1
+		
+		#il cliente da curare è sempre l'ultimo selezionato
+		_clienteDaCurare = cliente
+
+
+func _on_area_exited(area):
+	if(area.is_in_group("clienti")):
+		var cliente:Area2D = area
+		cliente.mostraConfermaCura(false)
+		_numClientiPresi -= 1
+		
+		if(_numClientiPresi == 0):
+			_clienteDaCurare = null
