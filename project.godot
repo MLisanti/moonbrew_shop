@@ -41,6 +41,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_1="pozioni"
 2d_physics/layer_2="clienti"
 2d_physics/layer_3="altri_oggetti"
+2d_physics/layer_4="farmacista"
 
 [physics]
 

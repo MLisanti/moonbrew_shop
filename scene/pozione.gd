@@ -5,6 +5,7 @@ var _elements_scene = preload("res://scene/elemento.tscn")
 
 signal grab_start(node:Node2D)
 signal grab_end(node:Node2D)
+signal butta_pozione(pozione:Node2D)
 
 var _dragging = false
 const _radius_drag:int = 50
@@ -18,6 +19,7 @@ var audio1 = preload("res://suoni/glass_clink_1.mp3")
 
 var _numClientiPresi = 0
 var _clienteDaCurare:Area2D = null
+var cambiaPozione = false
 
 
 @export var price:float = 100.0
@@ -102,6 +104,9 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 		print("effettua cura...")
 		_numClientiPresi = 0
 		_clienteDaCurare = null
+	
+	if(_dragging == false and cambiaPozione):
+		butta_pozione.emit(self)
 		
 #TODO: non si capisce bene il cliente che verrà curato ....
 
@@ -113,6 +118,15 @@ func _on_area_entered(area):
 		
 		#il cliente da curare è sempre l'ultimo selezionato
 		_clienteDaCurare = cliente
+		cambiaPozione = false
+	
+	print(area.name)
+	if(area.name=="farmacista"):
+		var farma = area
+		farma.mostraConfermaCambio(true)
+		
+		_clienteDaCurare = null
+		cambiaPozione = true
 
 
 func _on_area_exited(area):
@@ -123,3 +137,8 @@ func _on_area_exited(area):
 		
 		if(_numClientiPresi == 0):
 			_clienteDaCurare = null
+	
+	if(area.name=="farmacista"):
+		var farma = area
+		farma.mostraConfermaCambio(false)
+		cambiaPozione = false

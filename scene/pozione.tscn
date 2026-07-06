@@ -47,7 +47,7 @@ radius = 60.0
 height = 120.0
 
 [node name="pozione" type="Area2D" unique_id=1292925384 groups=["clienti"]]
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_3qbha")
 
 [node name="grafica_pozione" type="AnimatedSprite2D" parent="." unique_id=943024140]

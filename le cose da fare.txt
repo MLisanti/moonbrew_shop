@@ -1,0 +1,46 @@
+grafica che serve
+- sfondo gioco
+- credenza pozioni
+- sfondo testo
+- elementi della pozione disegnati
+	(trovare cose già pronte)
+V)- farmacista (colorato)
+V)- clienti (colorati) uomo, donna, argoniano m / f
+
+perdere dei soldi al cambio pozione
+
+suoni
+- dai pozione a cliente
+
+freesound_community-glass-clink-57538
+floraphonic-glass-clink-6-188126
+freesound_community-glass-bottle-clink-90671
+
+- prendi pozione con mouse \ touch
+- vincita giornata
+- vincita gioco
+- giornata persa \ game over
+
+
+Cose imparate
+
+generale
+- lavorare un pezzo alla volta
+	ES: una giornata = una singola cosa da completare:
+	- Importo disegni personaggio
+	- applicare i suoni
+	...
+
+grafica:
+- tenere disegni come prototipo
+
+>> sketch e colorazione successiva
+    disegnare in sezioni rettangolari per mantenere la stessa proporzione dei vari sprite
+	disegnare un triangolo per successivo riposizionamento del disegno
+	
+>> scanner del disegno 
+>> aprire su paint.net 
+>> creare livello MASCHERA per ritagliarlo velocemente
+>> impostare un nuovo progetto multi-livello e sistemare la grafica nella sezione rettangolare
+	(aiuta a posizionare correttamente la grafica nello sprite finale)
+>> esportare i singoli livelli come .png

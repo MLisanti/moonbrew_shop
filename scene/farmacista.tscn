@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bujp40k2scknf"]
+
+[ext_resource type="Texture2D" uid="uid://b1ljuiy70qhcq" path="res://immagini/farmacista/farmac_2.png" id="1_hllvp"]
+[ext_resource type="Script" uid="uid://dnrkdw7635rco" path="res://scene/farmacista.gd" id="1_plk6w"]
+[ext_resource type="Texture2D" uid="uid://d16k257h8amyi" path="res://immagini/farmacista/farmac_4.png" id="2_plk6w"]
+[ext_resource type="Texture2D" uid="uid://b3ap2ib4hx50m" path="res://immagini/farmacista/farmac_3.png" id="3_mk435"]
+[ext_resource type="Texture2D" uid="uid://c2hkx6vlw3icl" path="res://immagini/farmacista/farmac_1.png" id="4_7lqv4"]
+[ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="6_mk435"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqoya"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hllvp")
+}],
+"loop": true,
+"name": &"finito_livello",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_plk6w")
+}],
+"loop": true,
+"name": &"game_over_perso",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mk435")
+}],
+"loop": true,
+"name": &"game_over_vinto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7lqv4")
+}],
+"loop": true,
+"name": &"in_corso",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hllvp"]
+size = Vector2(212, 263)
+
+[node name="farmacista" type="Area2D" unique_id=90612525]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_plk6w")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1863123768]
+scale = Vector2(0.50181687, 0.5558439)
+sprite_frames = SubResource("SpriteFrames_tqoya")
+animation = &"in_corso"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2141818930]
+position = Vector2(7, 25.5)
+shape = SubResource("RectangleShape2D_hllvp")
+
+[node name="lblChange" type="Label" parent="." unique_id=1887142444]
+offset_left = -63.0
+offset_top = -186.0
+offset_right = 66.0
+offset_bottom = -142.0
+theme = ExtResource("6_mk435")
+theme_override_font_sizes/font_size = 36
+text = "Change!"
+horizontal_alignment = 1

@@ -1,48 +1,11 @@
 [gd_scene format=3 uid="uid://be75w8yjyxed8"]
 
 [ext_resource type="Script" uid="uid://183vn8g4n6kb" path="res://scene/main.gd" id="1_p1hux"]
+[ext_resource type="PackedScene" uid="uid://bujp40k2scknf" path="res://scene/farmacista.tscn" id="3_4j5ol"]
 [ext_resource type="Texture2D" uid="uid://bu44hocddxgv5" path="res://immagini/clienti/bancone.png" id="3_brvut"]
-[ext_resource type="Texture2D" uid="uid://c2hkx6vlw3icl" path="res://immagini/farmacista/farmac_1.png" id="3_p1hux"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
-[ext_resource type="Texture2D" uid="uid://d16k257h8amyi" path="res://immagini/farmacista/farmac_4.png" id="4_of57s"]
-[ext_resource type="Texture2D" uid="uid://b1ljuiy70qhcq" path="res://immagini/farmacista/farmac_2.png" id="5_b5f6u"]
-[ext_resource type="Texture2D" uid="uid://b3ap2ib4hx50m" path="res://immagini/farmacista/farmac_3.png" id="5_of57s"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_tqoya"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_b5f6u")
-}],
-"loop": true,
-"name": &"finito_livello",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_of57s")
-}],
-"loop": true,
-"name": &"game_over_perso",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_of57s")
-}],
-"loop": true,
-"name": &"game_over_vinto",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_p1hux")
-}],
-"loop": true,
-"name": &"in_corso",
-"speed": 5.0
-}]
+[ext_resource type="Texture2D" uid="uid://c1nw7x7hvq0ak" path="res://grafica_disegni/UI/monete.png" id="8_b5f6u"]
 
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_p1hux")
@@ -64,11 +27,8 @@ position = Vector2(337.8614, 583.2545)
 scale = Vector2(0.52394295, 0.59714925)
 texture = ExtResource("3_brvut")
 
-[node name="strega" type="AnimatedSprite2D" parent="strega_oggetti" unique_id=1463685596]
+[node name="farmacista" parent="strega_oggetti" unique_id=1863123768 instance=ExtResource("3_4j5ol")]
 position = Vector2(212.86137, 477.2545)
-scale = Vector2(0.50181687, 0.5558439)
-sprite_frames = SubResource("SpriteFrames_tqoya")
-animation = &"in_corso"
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=504331853]
 
@@ -91,10 +51,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Giorno 1"
 
-[node name="lbl_money_goal" type="Label" parent="UI/sopra/VBoxContainer" unique_id=1024936020]
+[node name="MarginContainer" type="MarginContainer" parent="UI/sopra/VBoxContainer" unique_id=1801918213]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/sopra/VBoxContainer/MarginContainer" unique_id=40538484]
+layout_mode = 2
+
+[node name="lbl_money_goal" type="Label" parent="UI/sopra/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1024936020]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "GUADAGNO / VENDUTO"
+
+[node name="TextureRect" type="TextureRect" parent="UI/sopra/VBoxContainer/MarginContainer/HBoxContainer" unique_id=902193101]
+layout_mode = 2
+texture = ExtResource("8_b5f6u")
+expand_mode = 2
 
 [node name="lbl_effects" type="Label" parent="UI/sopra/VBoxContainer" unique_id=461856114]
 layout_mode = 2
