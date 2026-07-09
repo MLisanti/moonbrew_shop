@@ -5,7 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://bu44hocddxgv5" path="res://immagini/clienti/bancone.png" id="3_brvut"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
-[ext_resource type="Texture2D" uid="uid://c1nw7x7hvq0ak" path="res://grafica_disegni/UI/monete.png" id="8_b5f6u"]
+[ext_resource type="AudioStream" uid="uid://djcty561jtn0s" path="res://suoni/glass_clink_1.mp3" id="7_p1hux"]
+[ext_resource type="Texture2D" uid="uid://cabsncuixgdmq" path="res://immagini/UI/monete.png" id="8_b5f6u"]
+[ext_resource type="AudioStream" uid="uid://0lreorwyaih8" path="res://suoni/glass_clink_2.mp3" id="8_of57s"]
+[ext_resource type="AudioStream" uid="uid://dtwoaft3ycmr5" path="res://suoni/glass_clink_3.mp3" id="9_b5f6u"]
+[ext_resource type="AudioStream" uid="uid://cl1ghjbc3bmbj" path="res://suoni/coindrop_ok.mp3" id="10_k65ib"]
+[ext_resource type="AudioStream" uid="uid://d20o8odjjd7bd" path="res://suoni/coindrop_ko.mp3" id="11_wscrc"]
 
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_p1hux")
@@ -105,3 +110,16 @@ one_shot = true
 [node name="suoni" type="Node2D" parent="." unique_id=1091512550]
 
 [node name="glass_clink" type="AudioStreamPlayer2D" parent="suoni" unique_id=758348612]
+stream = ExtResource("7_p1hux")
+
+[node name="give_client_ok" type="AudioStreamPlayer2D" parent="suoni" unique_id=276892802]
+stream = ExtResource("8_of57s")
+
+[node name="give_client_ko" type="AudioStreamPlayer2D" parent="suoni" unique_id=2014292433]
+stream = ExtResource("9_b5f6u")
+
+[node name="day_win" type="AudioStreamPlayer2D" parent="suoni" unique_id=984690107]
+stream = ExtResource("10_k65ib")
+
+[node name="day_lost" type="AudioStreamPlayer2D" parent="suoni" unique_id=477087061]
+stream = ExtResource("11_wscrc")

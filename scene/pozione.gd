@@ -5,7 +5,7 @@ var _elements_scene = preload("res://scene/elemento.tscn")
 
 signal grab_start(node:Node2D)
 signal grab_end(node:Node2D)
-signal butta_pozione(pozione:Node2D)
+signal crea_nuova_pozione(pozione:Node2D)
 
 var _dragging = false
 const _radius_drag:int = 50
@@ -27,7 +27,7 @@ var cambiaPozione = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	show_features(elements)
+	$helperElementi.mostra_elementi(elements, $features/Marker2D, $features)
 	$lblPrice.text = str(price) + " c"
 	
 	var nodoSprite:AnimatedSprite2D = $grafica_pozione
@@ -40,28 +40,6 @@ func imposta_scala(grandezza:int):
 		2:	$grafica_pozione.scale = Vector2(0.64, 0.64)
 		3:	$grafica_pozione.scale = Vector2(0.83, 0.83)
 		_:	$grafica_pozione.scale = Vector2(0.64, 0.64)
-
-func show_features(element_list:String):
-	var i=0
-	var riga = 0
-	var colonna = 0
-	while(i < element_list.length()):
-		var nodo_elemento:Node2D = _elements_scene.instantiate()
-		var c = element_list.substr(i,1)
-		
-		nodo_elemento.set_type(c)
-		nodo_elemento.position = $features/Marker2D.position
-		nodo_elemento.position.x = $features/Marker2D.position.x + (colonna*50)
-		nodo_elemento.position.y = $features/Marker2D.position.y - (riga*50)
-		
-		$features.add_child(nodo_elemento)
-		i += 1
-		
-		colonna += 1
-		
-		if(i>0 and i % 2 == 0): 
-			riga += 1
-			colonna = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -106,7 +84,7 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 		_clienteDaCurare = null
 	
 	if(_dragging == false and cambiaPozione):
-		butta_pozione.emit(self)
+		crea_nuova_pozione.emit(self)
 		
 #TODO: non si capisce bene il cliente che verrà curato ....
 

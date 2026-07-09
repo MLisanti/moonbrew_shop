@@ -80,12 +80,13 @@ func _input(event):
 		cambia_stato_livello(statiLivello.INIZIO)
 		$tmrCooldown.start(1.0)
 
-func ui_mostra_tutorial() :
+func ui_mostra_tutorial(val:bool):
 	var lblMoneyGoal:Control = $UI/sopra/VBoxContainer/MarginContainer/HBoxContainer/lbl_money_goal
 	$UI/sopra/VBoxContainer/lbl_levelNumber.text = "Day 0 / 10"
 	lblMoneyGoal.set("theme_override_colors/font_color", Color.WHITE)
 	lblMoneyGoal.text = "GAIN / GOAL"
 	$UI/sopra/VBoxContainer/lbl_effects.text = "Effects of potion"
+	$strega_oggetti/farmacista.mostraTutorial(val)
 
 func imposta_livello(livello):
 	var levelVar: Dictionary = imposta_variabili_livello(livello)
@@ -142,12 +143,13 @@ func _on_grab_start(nodo:Node2D):
 	if(not maskGrab.contains("1")):
 		maskGrab[nodo.grabIndex] = "1"
 		nodo.grabPermission = true
+		$suoni/glass_clink.play()
 		
 
 func _on_grab_end(nodo:Node2D):
 	maskGrab[nodo.grabIndex] = "0"
 
-func _on_butta_pozione(pozioneDaButtare:Node2D):
+func _on_crea_nuova_pozione(pozioneDaButtare:Node2D):
 	
 	if(pozioni_buttate < POZIONI_CREABILI_PER_LIVELLO):
 		print("Ora creo una nuova pozione!!")
@@ -164,8 +166,11 @@ func _on_butta_pozione(pozioneDaButtare:Node2D):
 		
 		pozioneDaButtare.queue_free()
 		pozioni_buttate += 1
+		
+		$suoni/give_client_ok.play()
 	else:
 		print("Non puoi ...")
+		$suoni/give_client_ko.play()
 	
 
 func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, client:Node2D, effects:String):
@@ -173,8 +178,12 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 	var descGuadagno = "You deserve nothing..."
 	if(curedDiseases > 0):
 		descGuadagno = "You gain " + str(round(guadagno)) + " over " + str(potion.price)
+		$suoni/give_client_ok.play()
+	else:
+		$suoni/give_client_ko.play()
 	
 	$UI/sopra/VBoxContainer/lbl_effects.text = effects + descGuadagno
+	
 	
 	moneyGain += guadagno
 	ui_update()
@@ -186,15 +195,16 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 	
 	_clienti_mancanti_prossimo_livello -= 1
 	
-	#TODO: se perdi l'ultimo livello .... vinci il gioco in ogni caso
 	if(_clienti_mancanti_prossimo_livello == 0):
 		if(moneyGain < moneyGoal):
 			cambia_stato_livello(statiLivello.GAME_OVER_PERSO)
+			$suoni/day_lost.play()
 		else:
 			if(_livello < 10):
 				cambia_stato_livello(statiLivello.FINITO_LIVELLO)
 			else:
 				cambia_stato_livello(statiLivello.GAME_OVER_VINTO)
+			$suoni/day_win.play()
 		
 
 @onready var controlCentroMessaggi:Control = $UI/centro
@@ -224,12 +234,13 @@ func cambia_stato_livello (nuovoStato:statiLivello):
 	statoLivello = nuovoStato
 	
 	if(nuovoStato == statiLivello.IN_CORSO):
+		ui_mostra_tutorial(false)
 		controlCentroMessaggi.visible = false
 		$strega_oggetti/farmacista.impostaAnimazione("in_corso")
 	
 	if(nuovoStato == statiLivello.INIZIO):
 		ui_mostra_inizio()
-		ui_mostra_tutorial()
+		ui_mostra_tutorial(true)
 		$strega_oggetti/farmacista.impostaAnimazione("in_corso")
 	
 	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO_LIVELLO):
@@ -256,7 +267,7 @@ func crea_pozione(indice:int, importanza:int, elementi:String, prezzo:float, pos
 	nodoPozione.grabIndex = indice
 	nodoPozione.connect("grab_start", _on_grab_start)
 	nodoPozione.connect("grab_end", _on_grab_end)
-	nodoPozione.connect("butta_pozione", _on_butta_pozione)
+	nodoPozione.connect("crea_nuova_pozione", _on_crea_nuova_pozione)
 	
 	
 
