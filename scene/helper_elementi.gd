@@ -1,9 +1,9 @@
 extends Node
 
-var _scena_elemento = preload("res://scene/elemento.tscn")
+var _scena_elemento = load("res://scene/elemento.tscn")
 
 func _ready():
-	_scena_elemento = load("res://scene/elemento.tscn")
+	pass
 
 func scegli_elemento_casuale():
 	var cas = randi_range(0, 3)
@@ -52,6 +52,7 @@ func mostra_elementi(element_list:String, marker:Marker2D, nodoElementi:Node2D):
 	var riga = 0
 	var colonna = 0
 	while(i < element_list.length()):
+		#_scena_elemento = load("res://scene/elemento.tscn")
 		var nodo_elemento:Node2D = _scena_elemento.instantiate()
 		var c = element_list.substr(i,1)
 		

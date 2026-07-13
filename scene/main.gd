@@ -2,6 +2,7 @@ extends Node2D
 
 #https://www.youtube.com/watch?v=YGqq58-CN-A
 
+
 """
 bugs:
 	- ad inizio livello controllare se esiste almeno una combinazione possibile
@@ -54,8 +55,9 @@ func imposta_variabili_livello(livello:int) -> Dictionary:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cambia_stato_livello(statiLivello.INIZIO)
+	ui_mostra_tutorial_passo_passo(0)
 	$strega_oggetti/farmacista.mostraConfermaCambio(false)
-	$UI/sotto/VBoxContainer/lblVersion.text = "Version: " +  ProjectSettings.get_setting("application/config/version")
+	$UI/UI_gioco/sotto/vbox/lblVersion.text = "Version: " +  ProjectSettings.get_setting("application/config/version")
 
 func _input(event):
 	if not ((event is InputEventMouseButton or event is InputEventScreenTouch) and event.pressed):
@@ -67,6 +69,12 @@ func _input(event):
 		cambia_stato_livello(statiLivello.IN_CORSO)
 		_livello = LIVELLO_INIZIO
 		imposta_livello(_livello)
+		
+		if(_livello == 1):
+			abilita_tutorial = true
+			passo_tutorial = 1
+			ui_mostra_tutorial_passo_passo(passo_tutorial)
+		
 	
 	if(statoLivello == statiLivello.FINITO_LIVELLO and event.pressed):
 		if(moneyGain < moneyGoal):
@@ -75,19 +83,21 @@ func _input(event):
 			cambia_stato_livello(statiLivello.IN_CORSO)
 			_livello += 1
 			imposta_livello(_livello)
+		
+		if(_livello == 2):
+			abilita_tutorial = true
+			passo_tutorial = 6
+			ui_mostra_tutorial_passo_passo(passo_tutorial)
+		else:
+			abilita_tutorial = false
 	
 	if((statoLivello == statiLivello.GAME_OVER_PERSO or statoLivello == statiLivello.GAME_OVER_VINTO) 
 			and event.pressed):
 		cambia_stato_livello(statiLivello.INIZIO)
 		$tmrCooldown.start(1.0)
 
-func ui_mostra_tutorial(val:bool):
-	var lblMoneyGoal:Control = $UI/sopra/VBoxContainer/MarginContainer/HBoxContainer/lbl_money_goal
-	$UI/sopra/VBoxContainer/lbl_levelNumber.text = "Day 0 / 10"
-	lblMoneyGoal.set("theme_override_colors/font_color", Color.WHITE)
-	lblMoneyGoal.text = "GAIN / GOAL"
-	$UI/sopra/VBoxContainer/lbl_effects.text = "Effects of potion"
-	$strega_oggetti/farmacista.mostraTutorial(val)
+
+	
 
 func imposta_livello(livello):
 	var levelVar: Dictionary = imposta_variabili_livello(livello)
@@ -98,8 +108,8 @@ func imposta_livello(livello):
 	pozioni_buttate = 0
 	
 	ui_update()
-	$UI/sopra/VBoxContainer/lbl_effects.text = ""
-	$UI/sopra/VBoxContainer/lbl_levelNumber.text = "Day "+ str(livello) + " / 10"
+	$UI/UI_gioco/sopra/vbox/lblEffects.text = ""
+	$UI/UI_gioco/sopra/vbox/lblLevelNumber.text = "Day "+ str(livello) + " / 10"
 	
 	maskGrab = ""
 	
@@ -183,7 +193,7 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 	else:
 		$suoni/give_client_ko.play()
 	
-	$UI/sopra/VBoxContainer/lbl_effects.text = effects + descGuadagno
+	$UI/UI_gioco/sopra/vbox/lblEffects.text = effects + descGuadagno
 	
 	
 	moneyGain += guadagno
@@ -208,53 +218,82 @@ func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, clie
 			$suoni/day_win.play()
 		
 
-@onready var controlCentroMessaggi:Control = $UI/centro
+@onready var controlCentroMessaggi:Control = $UI/UI_gioco/centro
 
 func ui_mostra_fine_livello():
 	controlCentroMessaggi.visible = true
-	$UI/centro/VBoxContainer/lblAzione.text = "Touch to continue..."
-	$UI/centro/VBoxContainer/lblMessaggio.text = "You got enough money!"
+	$UI/UI_gioco/centro/vbox/lblAzione.text = "Touch to continue..."
+	$UI/UI_gioco/centro/vbox/lblMessaggio.text = "You got enough money!"
+	
 
 func ui_mostra_inizio():
 	controlCentroMessaggi.visible = true
-	$UI/centro/VBoxContainer/lblMessaggio.text = "Touch to start!"
-	$UI/centro/VBoxContainer/lblAzione.text = "Sell the right potions\nand gain the minimum to continue!"
+	$UI/UI_gioco/centro/vbox/lblMessaggio.text = "Touch to start!"
+	$UI/UI_gioco/centro/vbox/lblAzione.text = "Sell the right potions\nand gain the minimum to continue!"
 
 func ui_mostra_game_over_perso():
 	controlCentroMessaggi.visible = true
-	$UI/centro/VBoxContainer/lblAzione.text = "Touch to restart"
-	$UI/centro/VBoxContainer/lblMessaggio.text = "You went bankrupt... rawr..."
+	$UI/UI_gioco/centro/vbox/lblAzione.text = "Touch to restart"
+	$UI/UI_gioco/centro/vbox/lblMessaggio.text = "You went bankrupt... rawr..."
 	
 func ui_mostra_game_over_vinto():
 	controlCentroMessaggi.visible = true
-	$UI/centro/VBoxContainer/lblAzione.text = "Touch to restart"
-	$UI/centro/VBoxContainer/lblMessaggio.text = "You cured everyone!! :rawr: !!"
+	$UI/UI_gioco/centro/vbox/lblAzione.text = "Touch to restart"
+	$UI/UI_gioco/centro/vbox/lblMessaggio.text = "You cured everyone!! :rawr: !!"
+
+func ui_mostra_tutorial_base(val:bool):
+	var lblMoneyGoal:Control = $UI/UI_gioco/sopra/vbox/cont/hbox/lblMoneyGoal
+	$UI/UI_gioco/sopra/vbox/lblLevelNumber.text = "Day 0 / 10"
+	lblMoneyGoal.set("theme_override_colors/font_color", Color.WHITE)
+	lblMoneyGoal.text = "GAIN / GOAL"
+	$UI/UI_gioco/sopra/vbox/lblEffects.text = "Effects of potion"
+	$strega_oggetti/farmacista.mostraTutorial(val)
+
+func ui_mostra_tutorial_passo_passo(val:int):
+	$UI_tutorial/tut_1_prendiPozioni.visible = val == 1
+	$UI_tutorial/tut_2_fuoco_legno.visible = val == 2
+	$UI_tutorial/tut_3_acqua_fuoco.visible = val == 3
+	$UI_tutorial/tut_4_brew.visible = val == 4
+	$UI_tutorial/tut_5_completa_giorno1.visible = val == 5
+	$UI_tutorial/tut_6_giorno2_legno_acqua.visible = val == 6
+	
+	$UI_tutorial.visible = val > 0
 
 func cambia_stato_livello (nuovoStato:statiLivello):
 	var precedente = statoLivello
 	statoLivello = nuovoStato
 	
 	if(nuovoStato == statiLivello.IN_CORSO):
-		ui_mostra_tutorial(false)
+		ui_mostra_tutorial_base(false)
 		controlCentroMessaggi.visible = false
 		$strega_oggetti/farmacista.impostaAnimazione("in_corso")
 	
 	if(nuovoStato == statiLivello.INIZIO):
 		ui_mostra_inizio()
-		ui_mostra_tutorial(true)
+		ui_mostra_tutorial_base(true)
 		$strega_oggetti/farmacista.impostaAnimazione("in_corso")
 	
-	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.FINITO_LIVELLO):
+	if(nuovoStato == statiLivello.FINITO_LIVELLO and precedente == statiLivello.IN_CORSO):
 		ui_mostra_fine_livello()
 		$strega_oggetti/farmacista.impostaAnimazione("finito_livello")
+		
+		if(abilita_tutorial and _livello == 1):
+			passo_tutorial = 0
+			abilita_tutorial = false
+			ui_mostra_tutorial_passo_passo(passo_tutorial)
 	
-	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.GAME_OVER_VINTO):
+	if(nuovoStato == statiLivello.GAME_OVER_VINTO and precedente == statiLivello.IN_CORSO ):
 		ui_mostra_game_over_vinto()
 		$strega_oggetti/farmacista.impostaAnimazione("game_over_vinto")
 		
-	if(precedente == statiLivello.IN_CORSO and nuovoStato == statiLivello.GAME_OVER_PERSO):
+	if(nuovoStato == statiLivello.GAME_OVER_PERSO and precedente == statiLivello.IN_CORSO):
 		ui_mostra_game_over_perso()
 		$strega_oggetti/farmacista.impostaAnimazione("game_over_perso")
+	
+	if(nuovoStato == statiLivello.GAME_OVER_VINTO or nuovoStato == statiLivello.GAME_OVER_PERSO):
+		abilita_tutorial = false
+		passo_tutorial = 0
+		ui_mostra_tutorial_passo_passo(passo_tutorial)
 
 func crea_pozione(indice:int, importanza:int, elementi:String, prezzo:float, posizione:Vector2):
 	var nodoPozione:Node2D = _scena_pozione.instantiate()
@@ -269,6 +308,7 @@ func crea_pozione(indice:int, importanza:int, elementi:String, prezzo:float, pos
 	nodoPozione.connect("grab_start", _on_grab_start)
 	nodoPozione.connect("grab_end", _on_grab_end)
 	nodoPozione.connect("crea_nuova_pozione", _on_crea_nuova_pozione)
+	nodoPozione.connect("crea_nuova_pozione", _on_crea_pozione_tutorial)
 	
 	
 
@@ -280,6 +320,25 @@ func crea_cliente(elementi:String, posizione:Vector2):
 	$clienti.add_child(nodoCliente)
 	
 	nodoCliente.connect("finish", _on_client_finish)
+	nodoCliente.connect("finish", _on_client_tutorial)
+
+var passo_tutorial = 0
+var abilita_tutorial = false
+func _on_client_tutorial(_curedDiseases:int, _totalDiseases:int, _potion:Node2D, _client:Node2D, _effects:String):
+	if(not abilita_tutorial):
+		return
+	passo_tutorial += 1		
+	ui_mostra_tutorial_passo_passo(passo_tutorial)
+
+func _on_crea_pozione_tutorial(_pozione:Node2D):
+	if(not abilita_tutorial):
+		return
+		
+	if(passo_tutorial != 4):
+		return
+		
+	passo_tutorial += 1
+	ui_mostra_tutorial_passo_passo(passo_tutorial)
 
 func ui_gameOver():
 	pass
@@ -288,14 +347,10 @@ func ui_roundWon():
 	pass
 	
 func ui_update():
-	var lblMoney:Control = $UI/sopra/VBoxContainer/MarginContainer/HBoxContainer/lbl_money_goal
+	var lblMoney:Control = $UI/UI_gioco/sopra/vbox/cont/hbox/lblMoneyGoal
 	
 	lblMoney.text = str(round(moneyGain)) + " c //  " + str(moneyGoal) + " c"
 	if(moneyGain < moneyGoal):
 		lblMoney.set("theme_override_colors/font_color", Color.RED)
 	else:
 		lblMoney.set("theme_override_colors/font_color", Color.WHITE)
-
-
-func _on_area_2d_input_event(viewport, event: InputEvent, shape_idx):
-	$Area2D/lblStatoInput.text = event.as_text()
