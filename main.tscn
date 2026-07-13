@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://be75w8yjyxed8"]
+
+[ext_resource type="Script" uid="uid://183vn8g4n6kb" path="res://scene/main.gd" id="1_p1hux"]
+[ext_resource type="PackedScene" uid="uid://bujp40k2scknf" path="res://scene/farmacista.tscn" id="3_4j5ol"]
+[ext_resource type="Texture2D" uid="uid://bu44hocddxgv5" path="res://immagini/clienti/bancone.png" id="3_brvut"]
+[ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
+[ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
+[ext_resource type="AudioStream" uid="uid://djcty561jtn0s" path="res://suoni/glass_clink_1.mp3" id="7_p1hux"]
+[ext_resource type="Texture2D" uid="uid://cabsncuixgdmq" path="res://immagini/UI/monete.png" id="8_b5f6u"]
+[ext_resource type="AudioStream" uid="uid://0lreorwyaih8" path="res://suoni/glass_clink_2.mp3" id="8_of57s"]
+[ext_resource type="AudioStream" uid="uid://dtwoaft3ycmr5" path="res://suoni/glass_clink_3.mp3" id="9_b5f6u"]
+
+[node name="main" type="Node2D" unique_id=386386039]
+script = ExtResource("1_p1hux")
+
+[node name="pos_start_pozioni" type="Marker2D" parent="." unique_id=1013096285]
+position = Vector2(116, 193)
+
+[node name="pos_start_clienti" type="Marker2D" parent="." unique_id=1554517359]
+position = Vector2(621, 500)
+
+[node name="pozioni" type="Node2D" parent="." unique_id=285773374]
+
+[node name="clienti" type="Node2D" parent="." unique_id=1768910864]
+
+[node name="strega_oggetti" type="Node2D" parent="." unique_id=1176392839]
+
+[node name="bancone" type="Sprite2D" parent="strega_oggetti" unique_id=1159495521]
+position = Vector2(337.8614, 583.2545)
+scale = Vector2(0.52394295, 0.59714925)
+texture = ExtResource("3_brvut")
+
+[node name="farmacista" parent="strega_oggetti" unique_id=1863123768 instance=ExtResource("3_4j5ol")]
+position = Vector2(212.86137, 477.2545)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=504331853]
+
+[node name="sopra" type="MarginContainer" parent="UI" unique_id=2087639673]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme = ExtResource("4_0ha60")
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/sopra" unique_id=185364146]
+layout_mode = 2
+
+[node name="lbl_levelNumber" type="Label" parent="UI/sopra/VBoxContainer" unique_id=710765464]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Giorno 1"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/sopra/VBoxContainer" unique_id=1801918213]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/sopra/VBoxContainer/MarginContainer" unique_id=40538484]
+layout_mode = 2
+
+[node name="lbl_money_goal" type="Label" parent="UI/sopra/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1024936020]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "GUADAGNO / VENDUTO"
+
+[node name="TextureRect" type="TextureRect" parent="UI/sopra/VBoxContainer/MarginContainer/HBoxContainer" unique_id=902193101]
+layout_mode = 2
+texture = ExtResource("8_b5f6u")
+expand_mode = 2
+
+[node name="lbl_effects" type="Label" parent="UI/sopra/VBoxContainer" unique_id=461856114]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Cure effettuate"
+
+[node name="centro" type="MarginContainer" parent="UI" unique_id=630878326]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme = ExtResource("4_0ha60")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/centro" unique_id=306350036]
+layout_mode = 2
+
+[node name="lblMessaggio" type="Label" parent="UI/centro/VBoxContainer" unique_id=1747189739]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Hai passato il round!"
+horizontal_alignment = 1
+
+[node name="lblAzione" type="Label" parent="UI/centro/VBoxContainer" unique_id=1343711622]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Click per continuare"
+horizontal_alignment = 1
+
+[node name="sotto" type="MarginContainer" parent="UI" unique_id=419453014]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/sotto" unique_id=770240990]
+layout_mode = 2
+
+[node name="lblVersion" type="Label" parent="UI/sotto/VBoxContainer" unique_id=37877767]
+layout_mode = 2
+text = "Version"
+
+[node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_wp4xf")]
+
+[node name="tmrCooldown" type="Timer" parent="." unique_id=1034026072]
+one_shot = true
+
+[node name="suoni" type="Node2D" parent="." unique_id=1091512550]
+
+[node name="glass_clink" type="AudioStreamPlayer2D" parent="suoni" unique_id=758348612]
+stream = ExtResource("7_p1hux")
+
+[node name="give_client_ok" type="AudioStreamPlayer2D" parent="suoni" unique_id=276892802]
+stream = ExtResource("8_of57s")
+
+[node name="give_client_ko" type="AudioStreamPlayer2D" parent="suoni" unique_id=2014292433]
+stream = ExtResource("9_b5f6u")
+
+[node name="day_win" type="AudioStreamPlayer2D" parent="suoni" unique_id=984690107]
+
+[node name="day_lost" type="AudioStreamPlayer2D" parent="suoni" unique_id=477087061]
