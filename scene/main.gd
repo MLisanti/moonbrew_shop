@@ -55,6 +55,7 @@ func imposta_variabili_livello(livello:int) -> Dictionary:
 func _ready():
 	cambia_stato_livello(statiLivello.INIZIO)
 	$strega_oggetti/farmacista.mostraConfermaCambio(false)
+	$UI/sotto/VBoxContainer/lblVersion.text = "Version: " +  ProjectSettings.get_setting("application/config/version")
 
 func _input(event):
 	if not ((event is InputEventMouseButton or event is InputEventScreenTouch) and event.pressed):
@@ -140,14 +141,14 @@ func imposta_livello(livello):
 		i+=1
 
 func _on_grab_start(nodo:Node2D):
-	if(not maskGrab.contains("1")):
+	if(not maskGrab.contains("1") ):
 		maskGrab[nodo.grabIndex] = "1"
-		nodo.grabPermission = true
+		nodo.set_grab_permission(true)
 		$suoni/glass_clink.play()
 		
-
 func _on_grab_end(nodo:Node2D):
 	maskGrab[nodo.grabIndex] = "0"
+	nodo.set_grab_permission(false)
 
 func _on_crea_nuova_pozione(pozioneDaButtare:Node2D):
 	

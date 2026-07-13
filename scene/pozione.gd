@@ -9,7 +9,7 @@ signal crea_nuova_pozione(pozione:Node2D)
 
 var _dragging = false
 const _radius_drag:int = 50
-var grabPermission = false
+var _grabPermission = false
 var grabIndex = 0
 
 
@@ -50,27 +50,34 @@ func audio_glass_clink():
 	$audio_clink.stream = audio1
 	$audio_clink.play()
 
+func set_grab_permission(value:bool):
+	_grabPermission = value
+
 func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 	
 	#touch
 	if(event is InputEventScreenTouch):
 		if((event.position - self.global_position).length() < _radius_drag):
-			if(not _dragging and event.pressed):
-				_dragging = true
-				grab_start.emit(self)
-			if(_dragging and not event.pressed):
-				_dragging = false
-				grab_end.emit(self)
+			grab_start.emit(self)
+			if(_grabPermission):
+				if(not _dragging and event.pressed):
+					_dragging = true
+					
+				if(_dragging and not event.pressed):
+					_dragging = false
+					grab_end.emit(self)
 	
 	#mouse
 	if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
 		if((self.global_position - event.position).length() < _radius_drag):
-			if(not _dragging and event.pressed):
-				_dragging = true
-				grab_start.emit(self)
-			if(_dragging and not event.pressed):
-				_dragging = false
-				grab_end.emit(self)
+			grab_start.emit(self)
+			if(_grabPermission):
+				if(not _dragging and event.pressed):
+					_dragging = true
+					
+				if(_dragging and not event.pressed):
+					_dragging = false
+					grab_end.emit(self)
 				
 	#drag
 	if(_dragging):
