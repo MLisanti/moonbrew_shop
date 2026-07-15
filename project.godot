@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="negozio_pozioni"
-config/version="0.2"
+config/version="0.3"
 run/main_scene="uid://be75w8yjyxed8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"

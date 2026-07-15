@@ -5,10 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://bu44hocddxgv5" path="res://immagini/clienti/bancone.png" id="3_brvut"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="3_wp4xf"]
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="4_0ha60"]
+[ext_resource type="AudioStream" uid="uid://cl1ghjbc3bmbj" path="res://suoni/coindrop_ok.mp3" id="7_k65ib"]
 [ext_resource type="AudioStream" uid="uid://djcty561jtn0s" path="res://suoni/glass_clink_1.mp3" id="7_p1hux"]
 [ext_resource type="Texture2D" uid="uid://cabsncuixgdmq" path="res://immagini/UI/monete.png" id="8_b5f6u"]
 [ext_resource type="AudioStream" uid="uid://0lreorwyaih8" path="res://suoni/glass_clink_2.mp3" id="8_of57s"]
+[ext_resource type="AudioStream" uid="uid://d20o8odjjd7bd" path="res://suoni/coindrop_ko.mp3" id="8_wscrc"]
 [ext_resource type="AudioStream" uid="uid://dtwoaft3ycmr5" path="res://suoni/glass_clink_3.mp3" id="9_b5f6u"]
+[ext_resource type="AudioStream" uid="uid://iowiilxajor" path="res://suoni/potion_brew.mp3" id="9_wscrc"]
 
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_b5f6u")
@@ -19,19 +22,19 @@ position = Vector2(116, 193)
 [node name="pos_start_clienti" type="Marker2D" parent="." unique_id=1554517359]
 position = Vector2(621, 500)
 
-[node name="pozioni" type="Node2D" parent="." unique_id=285773374]
+[node name="farma_oggetti" type="Node2D" parent="." unique_id=1176392839]
 
-[node name="clienti" type="Node2D" parent="." unique_id=1768910864]
-
-[node name="strega_oggetti" type="Node2D" parent="." unique_id=1176392839]
-
-[node name="bancone" type="Sprite2D" parent="strega_oggetti" unique_id=1159495521]
+[node name="bancone" type="Sprite2D" parent="farma_oggetti" unique_id=1159495521]
 position = Vector2(337.8614, 583.2545)
 scale = Vector2(0.52394295, 0.59714925)
 texture = ExtResource("3_brvut")
 
-[node name="farmacista" parent="strega_oggetti" unique_id=1863123768 instance=ExtResource("3_4j5ol")]
+[node name="farmacista" parent="farma_oggetti" unique_id=1863123768 instance=ExtResource("3_4j5ol")]
 position = Vector2(212.86137, 477.2545)
+
+[node name="clienti" type="Node2D" parent="." unique_id=1768910864]
+
+[node name="pozioni" type="Node2D" parent="." unique_id=285773374]
 
 [node name="suoni" type="Node2D" parent="." unique_id=1091512550]
 
@@ -45,10 +48,113 @@ stream = ExtResource("8_of57s")
 stream = ExtResource("9_b5f6u")
 
 [node name="day_win" type="AudioStreamPlayer2D" parent="suoni" unique_id=984690107]
+stream = ExtResource("7_k65ib")
 
 [node name="day_lost" type="AudioStreamPlayer2D" parent="suoni" unique_id=477087061]
+stream = ExtResource("8_wscrc")
+
+[node name="potion_brew" type="AudioStreamPlayer2D" parent="suoni" unique_id=1971654374]
+stream = ExtResource("9_wscrc")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=504331853]
+
+[node name="UI_tutorial" type="Control" parent="UI" unique_id=1012427451]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="tut_1_prendiPozioni" type="Control" parent="UI/UI_tutorial" unique_id=1799267467]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_1_prendiPozioni" unique_id=822984243]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 221.0
+offset_right = 1039.0
+offset_bottom = 274.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Drag the water potion to the client"
+
+[node name="tut_2_fuoco_legno" type="Control" parent="UI/UI_tutorial" unique_id=310104946]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_2_fuoco_legno" unique_id=828532894]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 221.0
+offset_right = 1039.0
+offset_bottom = 274.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Remember that fire cures wood!"
+
+[node name="tut_3_acqua_fuoco" type="Control" parent="UI/UI_tutorial" unique_id=1704053668]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_3_acqua_fuoco" unique_id=405351909]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 221.0
+offset_right = 1039.0
+offset_bottom = 274.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Try use water potion on fire!"
+
+[node name="tut_4_brew" type="Control" parent="UI/UI_tutorial" unique_id=718626768]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_4_brew" unique_id=730535455]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Unhappy with a potion?
+Brew a new one by
+dragging it onto yourself"
+
+[node name="tut_5_completa_giorno1" type="Control" parent="UI/UI_tutorial" unique_id=1199606552]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_5_completa_giorno1" unique_id=612147967]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Complete the first day!!"
+
+[node name="tut_6_giorno2_legno_acqua" type="Control" parent="UI/UI_tutorial" unique_id=313705844]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_6_giorno2_legno_acqua" unique_id=1793332813]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Wind cures Water,
+while Wood cures Wind"
+
+[node name="tut_7_giorno2_completa" type="Control" parent="UI/UI_tutorial" unique_id=412762808]
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_7_giorno2_completa" unique_id=1103906647]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Try  complete this second day!"
 
 [node name="UI_gioco" type="MarginContainer" parent="UI" unique_id=1165352736]
 anchors_preset = 15
@@ -127,78 +233,6 @@ layout_mode = 2
 [node name="lblVersion" type="Label" parent="UI/UI_gioco/sotto/vbox" unique_id=37877767]
 layout_mode = 2
 text = "Version"
-
-[node name="UI_tutorial" type="Node2D" parent="." unique_id=1769195864]
-visible = false
-
-[node name="tut_1_prendiPozioni" type="Node2D" parent="UI_tutorial" unique_id=1855171318]
-
-[node name="lblDesc" type="Label" parent="UI_tutorial/tut_1_prendiPozioni" unique_id=822984243]
-offset_left = 521.0
-offset_top = 221.0
-offset_right = 1039.0
-offset_bottom = 274.0
-theme = ExtResource("4_0ha60")
-theme_override_font_sizes/font_size = 38
-text = "Drag the potion to the client"
-
-[node name="tut_2_fuoco_legno" type="Node2D" parent="UI_tutorial" unique_id=2127520968]
-
-[node name="lblDesc" type="Label" parent="UI_tutorial/tut_2_fuoco_legno" unique_id=828532894]
-offset_left = 521.0
-offset_top = 221.0
-offset_right = 1039.0
-offset_bottom = 274.0
-theme = ExtResource("4_0ha60")
-theme_override_font_sizes/font_size = 38
-text = "Remember that fire cures wood!"
-
-[node name="tut_3_acqua_fuoco" type="Node2D" parent="UI_tutorial" unique_id=295772944]
-
-[node name="lblDesc" type="Label" parent="UI_tutorial/tut_3_acqua_fuoco" unique_id=405351909]
-offset_left = 521.0
-offset_top = 221.0
-offset_right = 1039.0
-offset_bottom = 274.0
-theme = ExtResource("4_0ha60")
-theme_override_font_sizes/font_size = 38
-text = "Try use water potion on fire!"
-
-[node name="tut_4_brew" type="Node2D" parent="UI_tutorial" unique_id=2134929001]
-
-[node name="lblDesc" type="Label" parent="UI_tutorial/tut_4_brew" unique_id=730535455]
-offset_left = 506.0
-offset_top = 156.0
-offset_right = 1024.0
-offset_bottom = 321.0
-theme = ExtResource("4_0ha60")
-theme_override_font_sizes/font_size = 38
-text = "Unhappy with a potion?
-Brew a new one by
-dragging it onto yourself"
-
-[node name="tut_5_completa_giorno1" type="Node2D" parent="UI_tutorial" unique_id=932418620]
-
-[node name="lblDesc" type="Label" parent="UI_tutorial/tut_5_completa_giorno1" unique_id=612147967]
-offset_left = 506.0
-offset_top = 156.0
-offset_right = 1024.0
-offset_bottom = 321.0
-theme = ExtResource("4_0ha60")
-theme_override_font_sizes/font_size = 38
-text = "Complete the first day!!"
-
-[node name="tut_6_giorno2_legno_acqua" type="Node2D" parent="UI_tutorial" unique_id=573037865]
-
-[node name="lblDesc" type="Label" parent="UI_tutorial/tut_6_giorno2_legno_acqua" unique_id=1793332813]
-offset_left = 506.0
-offset_top = 156.0
-offset_right = 1024.0
-offset_bottom = 321.0
-theme = ExtResource("4_0ha60")
-theme_override_font_sizes/font_size = 38
-text = "Wind cures Water,
-while Wood cures Wind"
 
 [node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("3_wp4xf")]
 

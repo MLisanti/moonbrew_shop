@@ -1,8 +1,5 @@
 extends Area2D
 
-var _elements_scene = preload("res://scene/elemento.tscn")
-
-
 signal grab_start(node:Node2D)
 signal grab_end(node:Node2D)
 signal crea_nuova_pozione(pozione:Node2D)
@@ -33,6 +30,7 @@ func _ready():
 	var nodoSprite:AnimatedSprite2D = $grafica_pozione
 	var casuale = randi_range(0, nodoSprite.sprite_frames.get_animation_names().size()-1)
 	nodoSprite.animation = nodoSprite.sprite_frames.get_animation_names()[casuale]
+	
 
 func imposta_scala(grandezza:int):
 	match grandezza:
@@ -46,7 +44,6 @@ func _process(_delta):
 	pass
 
 func audio_glass_clink():
-	var i = rand.randi_range(1, 3)
 	$audio_clink.stream = audio1
 	$audio_clink.play()
 
@@ -90,10 +87,13 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 		_numClientiPresi = 0
 		_clienteDaCurare = null
 	
-	if(_dragging == false and cambiaPozione):
+	if(_dragging == false and cambiaPozione and farmacista != null):
 		crea_nuova_pozione.emit(self)
+		farmacista.aumentaCambiPozione()
 		
 #TODO: non si capisce bene il cliente che verrà curato ....
+
+var farmacista:Node2D = null
 
 func _on_area_entered(area):
 	if(area.is_in_group("clienti")):
@@ -107,8 +107,12 @@ func _on_area_entered(area):
 	
 	print(area.name)
 	if(area.name=="farmacista"):
-		var farma = area
-		farma.mostraConfermaCambio(true)
+		farmacista = area
+		cambiaPozione = false
+		if(not farmacista.puoCrearePozioni()):
+			return
+			
+		farmacista.mostraConfermaCambio(true)
 		
 		_clienteDaCurare = null
 		cambiaPozione = true

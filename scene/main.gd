@@ -28,8 +28,6 @@ var maskGrab = ""
 const LIVELLO_INIZIO = 1
 var _livello = 0
 var _clienti_mancanti_prossimo_livello = 0
-const POZIONI_CREABILI_PER_LIVELLO = 1
-var pozioni_buttate = 0
 
 enum statiLivello {INIZIO, IN_CORSO, FINITO_LIVELLO, GAME_OVER_PERSO, GAME_OVER_VINTO}
 var statoLivello:statiLivello = statiLivello.IN_CORSO
@@ -56,7 +54,7 @@ func imposta_variabili_livello(livello:int) -> Dictionary:
 func _ready():
 	cambia_stato_livello(statiLivello.INIZIO)
 	ui_mostra_tutorial_passo_passo(0)
-	$strega_oggetti/farmacista.mostraConfermaCambio(false)
+	$farma_oggetti/farmacista.mostraConfermaCambio(false)
 	$UI/UI_gioco/sotto/vbox/lblVersion.text = "Version: " +  ProjectSettings.get_setting("application/config/version")
 
 func _input(event):
@@ -70,11 +68,6 @@ func _input(event):
 		_livello = LIVELLO_INIZIO
 		imposta_livello(_livello)
 		
-		if(_livello == 1):
-			abilita_tutorial = true
-			passo_tutorial = 1
-			ui_mostra_tutorial_passo_passo(passo_tutorial)
-		
 	
 	if(statoLivello == statiLivello.FINITO_LIVELLO and event.pressed):
 		if(moneyGain < moneyGoal):
@@ -84,20 +77,10 @@ func _input(event):
 			_livello += 1
 			imposta_livello(_livello)
 		
-		if(_livello == 2):
-			abilita_tutorial = true
-			passo_tutorial = 6
-			ui_mostra_tutorial_passo_passo(passo_tutorial)
-		else:
-			abilita_tutorial = false
-	
 	if((statoLivello == statiLivello.GAME_OVER_PERSO or statoLivello == statiLivello.GAME_OVER_VINTO) 
 			and event.pressed):
 		cambia_stato_livello(statiLivello.INIZIO)
 		$tmrCooldown.start(1.0)
-
-
-	
 
 func imposta_livello(livello):
 	var levelVar: Dictionary = imposta_variabili_livello(livello)
@@ -105,11 +88,23 @@ func imposta_livello(livello):
 	var nMalattie = levelVar["clientElements"]
 	moneyGain = 0
 	moneyGoal = levelVar["goalPrice"]
-	pozioni_buttate = 0
+	$farma_oggetti/farmacista.azzeraCambiPozione()
 	
 	ui_update()
+	
 	$UI/UI_gioco/sopra/vbox/lblEffects.text = ""
 	$UI/UI_gioco/sopra/vbox/lblLevelNumber.text = "Day "+ str(livello) + " / 10"
+	
+	if(_livello == 1):
+		abilita_tutorial = true
+		passo_tutorial = 1
+		ui_mostra_tutorial_passo_passo(passo_tutorial)
+	elif(_livello == 2):
+		abilita_tutorial = true
+		passo_tutorial = 6
+		ui_mostra_tutorial_passo_passo(passo_tutorial)
+	else:
+		abilita_tutorial = false
 	
 	maskGrab = ""
 	
@@ -162,26 +157,20 @@ func _on_grab_end(nodo:Node2D):
 
 func _on_crea_nuova_pozione(pozioneDaButtare:Node2D):
 	
-	if(pozioni_buttate < POZIONI_CREABILI_PER_LIVELLO):
-		print("Ora creo una nuova pozione!!")
-		
-		var pos = $pos_start_pozioni.position
+	print("Ora creo una nuova pozione!!")
 	
-		var elementi = ""
-		for j in range(pozioneDaButtare.elements.length()):
-			elementi += $helperElementi.scegli_elemento_casuale()
-		
-		var importanza = randi_range(1, 3)
-		crea_pozione(pozioneDaButtare.grabIndex, importanza, elementi, importanza * 50, pozioneDaButtare.position)
-		pos.x += 120
-		
-		pozioneDaButtare.queue_free()
-		pozioni_buttate += 1
-		
-		$suoni/give_client_ok.play()
-	else:
-		print("Non puoi ...")
-		$suoni/give_client_ko.play()
+	var pos = $pos_start_pozioni.position
+
+	var elementi = ""
+	for j in range(pozioneDaButtare.elements.length()):
+		elementi += $helperElementi.scegli_elemento_casuale()
+	
+	var importanza = randi_range(1, 3)
+	crea_pozione(pozioneDaButtare.grabIndex, importanza, elementi, importanza * 50, pozioneDaButtare.position)
+	pos.x += 120
+	
+	pozioneDaButtare.queue_free()
+	$suoni/potion_brew.play()
 	
 
 func _on_client_finish(curedDiseases:int, totalDiseases:int, potion:Node2D, client:Node2D, effects:String):
@@ -247,17 +236,18 @@ func ui_mostra_tutorial_base(val:bool):
 	lblMoneyGoal.set("theme_override_colors/font_color", Color.WHITE)
 	lblMoneyGoal.text = "GAIN / GOAL"
 	$UI/UI_gioco/sopra/vbox/lblEffects.text = "Effects of potion"
-	$strega_oggetti/farmacista.mostraTutorial(val)
+	$farma_oggetti/farmacista.mostraTutorial(val)
 
 func ui_mostra_tutorial_passo_passo(val:int):
-	$UI_tutorial/tut_1_prendiPozioni.visible = val == 1
-	$UI_tutorial/tut_2_fuoco_legno.visible = val == 2
-	$UI_tutorial/tut_3_acqua_fuoco.visible = val == 3
-	$UI_tutorial/tut_4_brew.visible = val == 4
-	$UI_tutorial/tut_5_completa_giorno1.visible = val == 5
-	$UI_tutorial/tut_6_giorno2_legno_acqua.visible = val == 6
+	$UI/UI_tutorial/tut_1_prendiPozioni.visible = val == 1
+	$UI/UI_tutorial/tut_2_fuoco_legno.visible = val == 2
+	$UI/UI_tutorial/tut_3_acqua_fuoco.visible = val == 3
+	$UI/UI_tutorial/tut_4_brew.visible = val == 4
+	$UI/UI_tutorial/tut_5_completa_giorno1.visible = val == 5
+	$UI/UI_tutorial/tut_6_giorno2_legno_acqua.visible = val == 6
+	$UI/UI_tutorial/tut_7_giorno2_completa.visible = val == 7
 	
-	$UI_tutorial.visible = val > 0
+	$UI/UI_tutorial.visible = val > 0
 
 func cambia_stato_livello (nuovoStato:statiLivello):
 	var precedente = statoLivello
@@ -266,16 +256,16 @@ func cambia_stato_livello (nuovoStato:statiLivello):
 	if(nuovoStato == statiLivello.IN_CORSO):
 		ui_mostra_tutorial_base(false)
 		controlCentroMessaggi.visible = false
-		$strega_oggetti/farmacista.impostaAnimazione("in_corso")
+		$farma_oggetti/farmacista.impostaAnimazione("in_corso")
 	
 	if(nuovoStato == statiLivello.INIZIO):
 		ui_mostra_inizio()
 		ui_mostra_tutorial_base(true)
-		$strega_oggetti/farmacista.impostaAnimazione("in_corso")
+		$farma_oggetti/farmacista.impostaAnimazione("in_corso")
 	
 	if(nuovoStato == statiLivello.FINITO_LIVELLO and precedente == statiLivello.IN_CORSO):
 		ui_mostra_fine_livello()
-		$strega_oggetti/farmacista.impostaAnimazione("finito_livello")
+		$farma_oggetti/farmacista.impostaAnimazione("finito_livello")
 		
 		if(abilita_tutorial and _livello == 1):
 			passo_tutorial = 0
@@ -284,11 +274,11 @@ func cambia_stato_livello (nuovoStato:statiLivello):
 	
 	if(nuovoStato == statiLivello.GAME_OVER_VINTO and precedente == statiLivello.IN_CORSO ):
 		ui_mostra_game_over_vinto()
-		$strega_oggetti/farmacista.impostaAnimazione("game_over_vinto")
+		$farma_oggetti/farmacista.impostaAnimazione("game_over_vinto")
 		
 	if(nuovoStato == statiLivello.GAME_OVER_PERSO and precedente == statiLivello.IN_CORSO):
 		ui_mostra_game_over_perso()
-		$strega_oggetti/farmacista.impostaAnimazione("game_over_perso")
+		$farma_oggetti/farmacista.impostaAnimazione("game_over_perso")
 	
 	if(nuovoStato == statiLivello.GAME_OVER_VINTO or nuovoStato == statiLivello.GAME_OVER_PERSO):
 		abilita_tutorial = false

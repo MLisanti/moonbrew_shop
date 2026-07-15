@@ -8,6 +8,10 @@
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="5_xed2p"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="7_ri02b"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qbha"]
+radius = 60.0
+height = 120.0
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ri02b"]
 animations = [{
 "frames": [{
@@ -43,21 +47,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qbha"]
-radius = 60.0
-height = 120.0
-
 [node name="pozione" type="Area2D" unique_id=1292925384 groups=["clienti"]]
 collision_mask = 10
 script = ExtResource("1_3qbha")
+
+[node name="CSClientiFarmacista" type="CollisionShape2D" parent="." unique_id=911560465]
+shape = SubResource("CapsuleShape2D_3qbha")
 
 [node name="grafica_pozione" type="AnimatedSprite2D" parent="." unique_id=943024140]
 scale = Vector2(0.6455811, 0.6455812)
 sprite_frames = SubResource("SpriteFrames_ri02b")
 animation = &"poz_4"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911560465]
-shape = SubResource("CapsuleShape2D_3qbha")
 
 [node name="lblPrice" type="Label" parent="." unique_id=2080580469]
 offset_left = -52.0
@@ -87,14 +87,12 @@ theme_override_font_sizes/font_size = 30
 text = "test"
 horizontal_alignment = 1
 
-[node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("7_ri02b")]
-
 [node name="features" type="Node2D" parent="." unique_id=1523772218]
 
 [node name="Marker2D" type="Marker2D" parent="features" unique_id=754010656]
 position = Vector2(-35, -106)
 
-[node name="audio_clink" type="AudioStreamPlayer2D" parent="." unique_id=771879207]
+[node name="helperElementi" parent="." unique_id=1343818349 instance=ExtResource("7_ri02b")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
