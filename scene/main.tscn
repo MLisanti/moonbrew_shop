@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://d20o8odjjd7bd" path="res://suoni/coindrop_ko.mp3" id="8_wscrc"]
 [ext_resource type="AudioStream" uid="uid://dtwoaft3ycmr5" path="res://suoni/glass_clink_3.mp3" id="9_b5f6u"]
 [ext_resource type="AudioStream" uid="uid://iowiilxajor" path="res://suoni/potion_brew.mp3" id="9_wscrc"]
+[ext_resource type="Texture2D" uid="uid://cn65cg0v25y03" path="res://immagini/UI/arrow.png" id="11_mswub"]
 
 [node name="main" type="Node2D" unique_id=386386039]
 script = ExtResource("1_b5f6u")
@@ -23,6 +24,31 @@ position = Vector2(116, 193)
 position = Vector2(621, 500)
 
 [node name="farma_oggetti" type="Node2D" parent="." unique_id=1176392839]
+
+[node name="muro" type="ColorRect" parent="farma_oggetti" unique_id=781391715]
+offset_right = 1170.0
+offset_bottom = 540.0
+color = Color(0.77254903, 0.57254905, 0.18039216, 1)
+
+[node name="scaffale_pozioni" type="ColorRect" parent="farma_oggetti" unique_id=1265853957]
+offset_left = 15.0
+offset_top = 268.0
+offset_right = 568.0
+offset_bottom = 304.0
+color = Color(0.6039216, 0.13333334, 0.12156863, 1)
+
+[node name="porta" type="ColorRect" parent="farma_oggetti" unique_id=1977298011]
+offset_left = 932.0
+offset_top = 245.0
+offset_right = 1129.0
+offset_bottom = 527.0
+color = Color(0.35384992, 0.074832715, 0.05560325, 1)
+
+[node name="pavimento" type="ColorRect" parent="farma_oggetti" unique_id=162548564]
+offset_top = 512.0
+offset_right = 1170.0
+offset_bottom = 670.0
+color = Color(0.57254905, 0.36078432, 0.15294118, 1)
 
 [node name="bancone" type="Sprite2D" parent="farma_oggetti" unique_id=1159495521]
 position = Vector2(337.8614, 583.2545)
@@ -65,28 +91,40 @@ anchors_preset = 0
 [node name="tut_1_prendiPozioni" type="Control" parent="UI/UI_tutorial" unique_id=1799267467]
 anchors_preset = 0
 
+[node name="TextureRect" type="TextureRect" parent="UI/UI_tutorial/tut_1_prendiPozioni" unique_id=929010953]
+layout_mode = 0
+offset_left = 612.0
+offset_top = 99.0
+offset_right = 1662.0
+offset_bottom = 799.0
+rotation = 1.3089969
+scale = Vector2(0.15629622, 0.15629622)
+texture = ExtResource("11_mswub")
+
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_1_prendiPozioni" unique_id=822984243]
 layout_mode = 0
-offset_left = 521.0
-offset_top = 221.0
-offset_right = 1039.0
-offset_bottom = 274.0
+offset_left = 651.0
+offset_top = 175.0
+offset_right = 1169.0
+offset_bottom = 272.0
 theme = ExtResource("4_0ha60")
 theme_override_font_sizes/font_size = 38
-text = "Drag the water potion to the client"
+text = "Drag the water potion 
+to the client"
 
 [node name="tut_2_fuoco_legno" type="Control" parent="UI/UI_tutorial" unique_id=310104946]
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_2_fuoco_legno" unique_id=828532894]
 layout_mode = 0
-offset_left = 521.0
-offset_top = 221.0
-offset_right = 1039.0
-offset_bottom = 274.0
+offset_left = 591.0
+offset_top = 151.0
+offset_right = 1109.0
+offset_bottom = 248.0
 theme = ExtResource("4_0ha60")
 theme_override_font_sizes/font_size = 38
-text = "Remember that fire cures wood!"
+text = "Drag a Fire potion 
+to cure a Wood disease"
 
 [node name="tut_3_acqua_fuoco" type="Control" parent="UI/UI_tutorial" unique_id=1704053668]
 anchors_preset = 0
@@ -164,6 +202,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+metadata/_edit_lock_ = true
 
 [node name="sopra" type="MarginContainer" parent="UI/UI_gioco" unique_id=2087639673]
 layout_mode = 2

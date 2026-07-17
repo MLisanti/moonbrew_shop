@@ -5,7 +5,8 @@ signal grab_end(node:Node2D)
 signal crea_nuova_pozione(pozione:Node2D)
 
 var _dragging = false
-const _radius_drag:int = 50
+const _radius_drag:int = 100
+const _radius_drag_dragging:int = 200
 var _grabPermission = false
 var grabIndex = 0
 

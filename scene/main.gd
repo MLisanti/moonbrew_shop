@@ -95,6 +95,8 @@ func imposta_livello(livello):
 	$UI/UI_gioco/sopra/vbox/lblEffects.text = ""
 	$UI/UI_gioco/sopra/vbox/lblLevelNumber.text = "Day "+ str(livello) + " / 10"
 	
+	abilita_tutorial = false
+	
 	if(_livello == 1):
 		abilita_tutorial = true
 		passo_tutorial = 1
@@ -103,8 +105,7 @@ func imposta_livello(livello):
 		abilita_tutorial = true
 		passo_tutorial = 6
 		ui_mostra_tutorial_passo_passo(passo_tutorial)
-	else:
-		abilita_tutorial = false
+		
 	
 	maskGrab = ""
 	

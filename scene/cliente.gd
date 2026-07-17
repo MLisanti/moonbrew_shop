@@ -65,5 +65,7 @@ func curaCliente(objPozione:Area2D):
 func mostraConfermaCura(val:bool):
 	if(val):
 		$lblAzione.text = "Give!"
+		$grafica_cura.show()
 	else:
 		$lblAzione.text = ""
+		$grafica_cura.hide()
