@@ -97,13 +97,9 @@ func imposta_livello(livello):
 	
 	abilita_tutorial = false
 	
-	if(_livello == 1):
+	if(_livello == 1 or _livello == 2 or _livello == 4):
 		abilita_tutorial = true
-		passo_tutorial = 1
-		ui_mostra_tutorial_passo_passo(passo_tutorial)
-	elif(_livello == 2):
-		abilita_tutorial = true
-		passo_tutorial = 6
+		passo_tutorial = (_livello * 10) + 1 	#es: livello 2 => inizio con nodo tutorial 21
 		ui_mostra_tutorial_passo_passo(passo_tutorial)
 		
 	
@@ -240,13 +236,18 @@ func ui_mostra_tutorial_base(val:bool):
 	$farma_oggetti/farmacista.mostraTutorial(val)
 
 func ui_mostra_tutorial_passo_passo(val:int):
-	$UI/UI_tutorial/tut_1_prendiPozioni.visible = val == 1
-	$UI/UI_tutorial/tut_2_fuoco_legno.visible = val == 2
-	$UI/UI_tutorial/tut_3_acqua_fuoco.visible = val == 3
-	$UI/UI_tutorial/tut_4_brew.visible = val == 4
-	$UI/UI_tutorial/tut_5_completa_giorno1.visible = val == 5
-	$UI/UI_tutorial/tut_6_giorno2_legno_acqua.visible = val == 6
-	$UI/UI_tutorial/tut_7_giorno2_completa.visible = val == 7
+	$UI/UI_tutorial/tut_11_prendiPozioni.visible = val == 11
+	$UI/UI_tutorial/tut_12_fuoco_legno.visible = val == 12
+	$UI/UI_tutorial/tut_13_acqua_fuoco.visible = val == 13
+	$UI/UI_tutorial/tut_14_money.visible = val == 14
+	$UI/UI_tutorial/tut_15_completa_giorno1.visible = val == 15
+	$UI/UI_tutorial/tut_21_giorno2_legno_acqua.visible = val == 21
+	$UI/UI_tutorial/tut_22_giorno2_legno_vento.visible = val == 22
+	$UI/UI_tutorial/tut_23_giorno2_effetti.visible = val == 23
+	$UI/UI_tutorial/tut_24_giorno2_completa.visible = val == 24
+	$UI/UI_tutorial/tut_41_giorno4_brew.visible = val == 41
+	$UI/UI_tutorial/tut_42_giorno4_brew_limit.visible = val == 42
+	
 	
 	$UI/UI_tutorial.visible = val > 0
 
@@ -325,17 +326,11 @@ func _on_crea_pozione_tutorial(_pozione:Node2D):
 	if(not abilita_tutorial):
 		return
 		
-	if(passo_tutorial != 4):
+	if(passo_tutorial != 41):
 		return
 		
 	passo_tutorial += 1
 	ui_mostra_tutorial_passo_passo(passo_tutorial)
-
-func ui_gameOver():
-	pass
-	
-func ui_roundWon():
-	pass
 	
 func ui_update():
 	var lblMoney:Control = $UI/UI_gioco/sopra/vbox/cont/hbox/lblMoneyGoal

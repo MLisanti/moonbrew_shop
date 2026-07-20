@@ -8,9 +8,8 @@
 [ext_resource type="Theme" uid="uid://di87sdcr01o5v" path="res://tema_ui.tres" id="5_xed2p"]
 [ext_resource type="PackedScene" uid="uid://bg3a1fnlwgjk3" path="res://scene/helper_elementi.tscn" id="7_ri02b"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qbha"]
-radius = 60.0
-height = 120.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ri02b"]
+size = Vector2(40, 88)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ri02b"]
 animations = [{
@@ -52,7 +51,8 @@ collision_mask = 10
 script = ExtResource("1_3qbha")
 
 [node name="CSClientiFarmacista" type="CollisionShape2D" parent="." unique_id=911560465]
-shape = SubResource("CapsuleShape2D_3qbha")
+position = Vector2(2, 5)
+shape = SubResource("RectangleShape2D_ri02b")
 
 [node name="grafica_pozione" type="AnimatedSprite2D" parent="." unique_id=943024140]
 scale = Vector2(0.6455811, 0.6455812)
