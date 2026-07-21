@@ -85,19 +85,19 @@ stream = ExtResource("9_wscrc")
 [node name="UI" type="CanvasLayer" parent="." unique_id=504331853]
 
 [node name="UI_tutorial" type="Control" parent="UI" unique_id=1012427451]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 
 [node name="tut_11_prendiPozioni" type="Control" parent="UI/UI_tutorial" unique_id=1799267467]
+visible = false
 anchors_preset = 0
 
 [node name="txrFreccia" type="TextureRect" parent="UI/UI_tutorial/tut_11_prendiPozioni" unique_id=929010953]
 layout_mode = 0
 offset_left = 612.0
-offset_top = 99.0
+offset_top = 177.99998
 offset_right = 1662.0
-offset_bottom = 799.0
+offset_bottom = 878.0
 rotation = 1.3089969
 scale = Vector2(0.15629622, 0.15629622)
 texture = ExtResource("11_mswub")
@@ -111,9 +111,10 @@ offset_bottom = 272.0
 theme = ExtResource("4_0ha60")
 theme_override_font_sizes/font_size = 38
 text = "Drag the water potion 
-to this client"
+to a fire client and cure them"
 
 [node name="tut_12_fuoco_legno" type="Control" parent="UI/UI_tutorial" unique_id=310104946]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_12_fuoco_legno" unique_id=828532894]
@@ -128,6 +129,7 @@ text = "Drag a Fire potion
 to cure a Wood disease"
 
 [node name="tut_13_acqua_fuoco" type="Control" parent="UI/UI_tutorial" unique_id=1704053668]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_13_acqua_fuoco" unique_id=405351909]
@@ -141,6 +143,7 @@ theme_override_font_sizes/font_size = 38
 text = "Cure a fire disease with water!"
 
 [node name="tut_14_money" type="Control" parent="UI/UI_tutorial" unique_id=718626768]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_14_money" unique_id=730535455]
@@ -165,6 +168,7 @@ scale = Vector2(0.15629622, 0.15629622)
 texture = ExtResource("11_mswub")
 
 [node name="tut_15_completa_giorno1" type="Control" parent="UI/UI_tutorial" unique_id=1199606552]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_15_completa_giorno1" unique_id=612147967]
@@ -178,6 +182,7 @@ theme_override_font_sizes/font_size = 38
 text = "Drago the last potion!!"
 
 [node name="tut_21_giorno2_legno_acqua" type="Control" parent="UI/UI_tutorial" unique_id=313705844]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_21_giorno2_legno_acqua" unique_id=1793332813]
@@ -191,6 +196,7 @@ theme_override_font_sizes/font_size = 38
 text = "Wind potions can cure Water diseases"
 
 [node name="tut_22_giorno2_legno_vento" type="Control" parent="UI/UI_tutorial" unique_id=449946065]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_22_giorno2_legno_vento" unique_id=357516308]
@@ -204,6 +210,7 @@ theme_override_font_sizes/font_size = 38
 text = "Wood potions cures Wind diseases"
 
 [node name="tut_23_giorno2_effetti" type="Control" parent="UI/UI_tutorial" unique_id=844054896]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_23_giorno2_effetti" unique_id=1639627324]
@@ -229,6 +236,7 @@ scale = Vector2(0.15629622, 0.15629622)
 texture = ExtResource("11_mswub")
 
 [node name="tut_24_giorno2_completa" type="Control" parent="UI/UI_tutorial" unique_id=2001839864]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_24_giorno2_completa" unique_id=602310160]
@@ -242,6 +250,7 @@ theme_override_font_sizes/font_size = 38
 text = "Complete this day!"
 
 [node name="tut_41_giorno4_brew" type="Control" parent="UI/UI_tutorial" unique_id=1294804821]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_41_giorno4_brew" unique_id=1109485700]
@@ -266,6 +275,7 @@ scale = Vector2(0.15629622, 0.15629622)
 texture = ExtResource("11_mswub")
 
 [node name="tut_42_giorno4_brew_limit" type="Control" parent="UI/UI_tutorial" unique_id=412762808]
+visible = false
 anchors_preset = 0
 
 [node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_42_giorno4_brew_limit" unique_id=1103906647]
@@ -278,6 +288,66 @@ theme = ExtResource("4_0ha60")
 theme_override_font_sizes/font_size = 38
 text = "You can just brew a potion
 a day... brew wisely!"
+
+[node name="tut_61_piu_effetti" type="Control" parent="UI/UI_tutorial" unique_id=582240159]
+visible = false
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_61_piu_effetti" unique_id=507942617]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "A potion can cure more
+ than one disease a time"
+
+[node name="tut_71_piu_malattie" type="Control" parent="UI/UI_tutorial" unique_id=1890030702]
+visible = false
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_71_piu_malattie" unique_id=1687260960]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "A customer can have
+more than one disease"
+
+[node name="tut_72_piu_malattie2" type="Control" parent="UI/UI_tutorial" unique_id=1705186494]
+visible = false
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_72_piu_malattie2" unique_id=1054120595]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "Cure all client disease and
+get full payment for a potion! "
+
+[node name="tut_73_piu_malattie3" type="Control" parent="UI/UI_tutorial" unique_id=1085515863]
+visible = false
+anchors_preset = 0
+
+[node name="lblDesc" type="Label" parent="UI/UI_tutorial/tut_73_piu_malattie3" unique_id=585939025]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 321.0
+theme = ExtResource("4_0ha60")
+theme_override_font_sizes/font_size = 38
+text = "You get paid for 
+what you cured"
 
 [node name="UI_gioco" type="MarginContainer" parent="UI" unique_id=1165352736]
 anchors_preset = 15

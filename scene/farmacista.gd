@@ -10,6 +10,7 @@ func puoCrearePozioni() -> bool:
 func _ready():
 	pass # Replace with function body.
 	$lblTutorial.hide()
+	mostraConfermaCambio(false)
 
 func azzeraCambiPozione():
 	pozioniCambiate = 0
@@ -22,10 +23,12 @@ func _process(delta):
 	pass
 
 func mostraConfermaCambio(val:bool):
-	$lblChange.visible = val
+	$lblCambiaPozione.visible = val
+	$grafica_brew.visible = val
+	
 	
 func mostraTutorial(val:bool):
 	$lblTutorial.visible = val
 
 func impostaAnimazione(nome:String):
-	$Sprite.animation = nome
+	$SpriteDragonessa.animation = nome

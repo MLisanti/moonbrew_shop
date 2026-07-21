@@ -12,7 +12,7 @@ var grabIndex = 0
 
 
 var rand=RandomNumberGenerator.new()
-
+var farmacista:Node2D = null
 var audio1 = preload("res://suoni/glass_clink_1.mp3")
 
 var _numClientiPresi = 0
@@ -42,7 +42,8 @@ func imposta_scala(grandezza:int):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if(_dragging):
+		self.global_position = get_global_mouse_position()
 
 func audio_glass_clink():
 	$audio_clink.stream = audio1
@@ -52,9 +53,9 @@ func set_grab_permission(value:bool):
 	_grabPermission = value
 
 func _on_input_event(_viewport, event:InputEvent, _shape_idx):
-	
 	#touch
 	if(event is InputEventScreenTouch):
+		#print("touch")
 		if((event.position - self.global_position).length() < _radius_drag):
 			grab_start.emit(self)
 			if(_grabPermission):
@@ -66,6 +67,7 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 					grab_end.emit(self)
 	
 	#mouse
+	
 	if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
 		if((self.global_position - event.position).length() < _radius_drag):
 			grab_start.emit(self)
@@ -76,10 +78,12 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 				if(_dragging and not event.pressed):
 					_dragging = false
 					grab_end.emit(self)
-				
+	
 	#drag
 	if(_dragging):
-		self.global_position = event.position
+		# se non viene più intercettato l'evento di movimento non viene posizionato l'oggetto
+		#self.global_position = event.position
+		pass
 	
 	#cura il cliente solo se ne hai selezionato uno e non di piu
 	if(_dragging == false and _numClientiPresi == 1 and _clienteDaCurare != null):
@@ -92,10 +96,6 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 		crea_nuova_pozione.emit(self)
 		farmacista.aumentaCambiPozione()
 		
-#TODO: non si capisce bene il cliente che verrà curato ....
-
-var farmacista:Node2D = null
-
 func _on_area_entered(area):
 	if(area.is_in_group("clienti")):
 		var cliente:Area2D = area

@@ -50,7 +50,14 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_plk6w")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1863123768]
+[node name="grafica_brew" type="ColorRect" parent="." unique_id=1553939680]
+offset_left = -150.0
+offset_top = -142.0
+offset_right = 145.0
+offset_bottom = 174.0
+color = Color(1, 0.7764706, 0, 0.2784314)
+
+[node name="SpriteDragonessa" type="AnimatedSprite2D" parent="." unique_id=1863123768]
 scale = Vector2(0.50181687, 0.5558439)
 sprite_frames = SubResource("SpriteFrames_tqoya")
 animation = &"in_corso"
@@ -59,7 +66,7 @@ animation = &"in_corso"
 position = Vector2(7, 25.5)
 shape = SubResource("RectangleShape2D_hllvp")
 
-[node name="lblChange" type="Label" parent="." unique_id=1887142444]
+[node name="lblCambiaPozione" type="Label" parent="." unique_id=1887142444]
 offset_left = -63.0
 offset_top = -186.0
 offset_right = 66.0
