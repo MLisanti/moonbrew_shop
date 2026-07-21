@@ -55,7 +55,6 @@ func set_grab_permission(value:bool):
 func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 	#touch
 	if(event is InputEventScreenTouch):
-		#print("touch")
 		if((event.position - self.global_position).length() < _radius_drag):
 			grab_start.emit(self)
 			if(_grabPermission):
@@ -88,7 +87,6 @@ func _on_input_event(_viewport, event:InputEvent, _shape_idx):
 	#cura il cliente solo se ne hai selezionato uno e non di piu
 	if(_dragging == false and _numClientiPresi == 1 and _clienteDaCurare != null):
 		_clienteDaCurare.curaCliente(self)
-		print("effettua cura...")
 		_numClientiPresi = 0
 		_clienteDaCurare = null
 	
